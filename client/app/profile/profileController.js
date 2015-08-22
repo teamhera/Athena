@@ -59,7 +59,7 @@ module.exports = function profileController($scope, $stateParams, Home){
   *********************************************/
 
   $scope.votedYes = function(input){
-    window.console.log('member is', input);
+    window.console.log('vote is', input);
     return input.vote === 'Yes' || input.vote === 'Aye' || input.vote === 'Yea';
   };
 
