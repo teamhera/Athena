@@ -7,27 +7,34 @@ module.exports = function profileController($scope, $stateParams, Home){
   var memberId1=$stateParams.id;
 
   $scope.allMembers = Home.allMembers;
-  $scope.member = {};
+  $scope.members = {};
   $scope.secondMember = {};
   $scope.commonVotes = [];
-  $scope.test=0;
-  
-  getMember(memberId1, $scope.member);
+  $scope.memberOrigin = 0;
+  $scope.memberIndex = 0;
+  $scope.currentBill = null;
+
+  getMember(memberId1, $scope.members);
  
  /*******************************************
    * Load one Member Profile from Factory
    ******************************************/
 
-   function getMember(id, member){
+  function getMember(id, members){
     Home.getMember(id)
     .then(function(data){
-      member.data = data;
-      member.data.age=calculateAge(new Date(member.data.birthday));
+      $scope.memberIndex++;
+      if(!Object.keys(members).length){
+        $scope.memberOrigin = $scope.memberIndex;
+      }
+      members[$scope.memberIndex] = data;
+      members[$scope.memberIndex].age = calculateAge(new Date(members[$scope.memberIndex].birthday));
+      members[$scope.memberIndex].currentIndex = $scope.memberIndex;
       //Load D3 Graph when politican is added
-      loadGraph(id, member.data.fullname);
-      return member;
-    }).then(function(member){
-      getMemberVotes(member);
+      //loadGraph(id, members[$scope.memberIndex].fullname);
+      return members;
+    }).then(function(members){
+      getMemberVotes(members[$scope.memberIndex]);
     }).catch(function(err){
       throw err;
     });        
@@ -38,14 +45,42 @@ module.exports = function profileController($scope, $stateParams, Home){
    * add to member object
    ******************************************/
 
-   function getMemberVotes(member){
-    Home.getMemberVotes(member.data.id)
+  function getMemberVotes(member){
+    Home.getMemberVotes(member.id)
     .then(function(votes){
-      member.data.votes = votes;
+      $scope.members[$scope.memberIndex].votes = votes;
     }).catch(function(err){
       throw err;
     });
   }
+
+  /********************************************
+  * return vote property of input
+  *********************************************/
+
+  $scope.votedYes = function(input){
+    window.console.log('member is', input);
+    return input.vote === 'Yes' || input.vote === 'Aye' || input.vote === 'Yea';
+  };
+
+  $scope.votedNo = function(input){
+    return input.vote === 'Nay' || input.vote === 'No';
+  };
+
+  $scope.votedNeutral = function(input){
+    return $scope.votedYes(input) === $scope.votedNo(input);
+  };
+
+  $scope.updateCurrentBill = function(input){
+    //window.console.log('input is ', input);
+    $scope.currentBill = input;
+    return true;
+  };
+
+  $scope.showMembers = function(){
+    window.console.log($scope.members);
+    return false;
+  };
 
 
   function calculateAge(birthday) { // birthday is a date
@@ -59,7 +94,7 @@ module.exports = function profileController($scope, $stateParams, Home){
    ******************************************/
    $scope.loadMember = function (){
     var memberId2 = $scope.addMember.id;
-    getMember(memberId2, $scope.secondMember);
+    getMember(memberId2, $scope.members);
     // Clear Member input on second politician search
     $scope.addMember = null;
    };
@@ -67,17 +102,28 @@ module.exports = function profileController($scope, $stateParams, Home){
    /*******************************************
     * Remove Compared Politician
     ******************************************/
-    $scope.removePolitician = function() {
-      $scope.secondMember.data.id = null;
+    $scope.removePolitician = function(index) {
+      delete $scope.members[index];
       //Remove Vote Graph
       $(".graph svg:last-child").remove();
     };
 
 
+
+
+
+
+
+
+
+
+
+
+
   /*******************************************
    * Plot Historical Votes on Graph
    ******************************************/
-   function loadGraph(memberId, memberName){
+  function loadGraph(memberId, memberName){
       Home.getHistoricVotes(memberId)
         .then(function(data){
 
