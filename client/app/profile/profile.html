@@ -101,7 +101,7 @@
           </span>
         </div>
 
-        <div ng-if="updateCurrentBill($index)" ng-repeat="member in members">
+        <div ng-if="updateCurrentBill(members[memberOrigin].votes.indexOf(bill))" ng-repeat="member in members">
           <div class="col-sm-2 member-vote vote-left" ng-class="{positive: votedYes(member.votes[currentBill]), negative: votedNo(member.votes[currentBill]), neutral: votedNeutral(member.votes[currentBill])}">
             <img ng-if="votedYes(member.votes[currentBill])" src="/images/icons/thumb-up.png" alt="yes">
             <img ng-if="votedNo(member.votes[currentBill])" src="/images/icons/thumb-down.png" alt="no">
