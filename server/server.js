@@ -194,6 +194,17 @@ app.get('/*', function(req, res){
 });
 
 
+app.get('/congressData', function(req, res){
+  fs.readFile(path.join(__dirname, '../us-congress-114.json'), function(err, data){
+    console.log("READING DONE");
+    if(err){
+      console.log(err);
+    }
+    console.log(data);
+    res.send(data);
+  });
+});
+
 // this expression runs on server start, retrieves a list of current members and writes it to memberList
 members.getAllMembers(function(objects){
 
