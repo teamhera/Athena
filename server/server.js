@@ -21,7 +21,7 @@ app.use(favicon(__dirname + '/../client/favicon.ico'));
     id3: {memberEntry},
     id4: {memberEntry},
     id5: {memberEntry}, ...
-  } 
+  }
 */
 var memberList = {};
 
@@ -29,7 +29,7 @@ var memberList = {};
 var trendingList = [];
 
 /*  memberProfile will eventually look like this after a GET request to a member_ID
-  { 
+  {
     id: 412669,
     name: 'Sen. Mike Rounds [R-SD]',
     description: 'Junior Senator from South Dakota',
@@ -39,13 +39,13 @@ var trendingList = [];
     twitterid: 'SenatorRounds',
     youtubeid: null,
     website: 'http://www.rounds.senate.gov',
-    phone: '202-224-5842' 
+    phone: '202-224-5842'
   }
 */
 var memberProfile = {};
 
 
-/* billInfo will look like this after a GET request to a specific bill_ID 
+/* billInfo will look like this after a GET request to a specific bill_ID
   {
     question: 'Cloture on S. 1881: A bill to prohibit Federal funding of Planned Parenthood Federation of America.',
     thomas_link: undefined,
@@ -93,7 +93,7 @@ app.get('/members/*', function(req, res){
 // sends back memberVotes JSON to client
 
 /* memberVotes will look like this after a GET request to a specific member's voting record
-  [ 
+  [
      { id: ID
       vote: STRING_OF_VOTE,
       bill_question: STRING_OF_QUESTION,
@@ -181,6 +181,14 @@ app.get('/billvotes/*', function(req, res){
   });
 });
 
+app.get('/mapData', function(req, res){
+  fs.readFile(path.join(__dirname, '../us.json'), function(err, data){
+    if(err){
+      console.log(err);
+    }
+    res.send(data);
+  });
+});
 app.get('/*', function(req, res){
   res.render('index.ejs');
 });
@@ -188,7 +196,7 @@ app.get('/*', function(req, res){
 
 // this expression runs on server start, retrieves a list of current members and writes it to memberList
 members.getAllMembers(function(objects){
-  
+
   objects.forEach(function(listing){
     var id = listing.person.id;
     memberList[id] = utils.makeMemberEntry(listing);
