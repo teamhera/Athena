@@ -103,6 +103,7 @@ module.exports = function homeFactory($http){
       url: '/mapData',
     })
     .then(function(res){
+      console.log(res.data);
       return res.data;
     });
   }
@@ -128,6 +129,7 @@ module.exports = function homeFactory($http){
       url: '/congressData',
     })
     .then(function(res){
+      console.log(res.data);
       return res.data;
     });
   }
@@ -147,7 +149,9 @@ module.exports = function homeFactory($http){
     getBillDetails: getBillDetails,
     getHistoricVotes: getHistoricVotes,
     getAllBills: getAllBills,
-    getBillVotes: getBillVotes
+    getBillVotes: getBillVotes,
+    getMapData: getMapData,
+    getCongressData: getCongressData
   });
 
 };

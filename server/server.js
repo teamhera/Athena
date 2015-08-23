@@ -64,6 +64,24 @@ var billInfo = {};
 
 // Set up routing to listen for GET requests from front-end
 
+app.get('/mapData', function(req, res){
+  fs.readFile(path.join(__dirname, '../us.json'), function(err, data){
+    if(err){
+      console.log(err);
+    }
+    res.send(data);
+  });
+});
+
+app.get('/congressData', function(req, res){
+  fs.readFile(path.join(__dirname, '../us-congress-114.json'), function(err, data){
+    if(err){
+      console.log(err);
+    }
+    res.send(data);
+  });
+});
+
 // on a GET request to '/members/*' we see if it is a call for all members or a specific member
 app.get('/members/*', function(req, res){
   var pathObj = pathParse(req.url);
@@ -182,6 +200,7 @@ app.get('/billvotes/*', function(req, res){
   });
 });
 
+
 app.get('/mapData', function(req, res){
   fs.readFile(path.join(__dirname, '../us.json'), function(err, data){
     if(err){
@@ -190,10 +209,6 @@ app.get('/mapData', function(req, res){
     res.send(data);
   });
 });
-app.get('/*', function(req, res){
-  res.render('index.ejs');
-});
-
 
 app.get('/congressData', function(req, res){
   fs.readFile(path.join(__dirname, '../us-congress-114.json'), function(err, data){
@@ -205,6 +220,12 @@ app.get('/congressData', function(req, res){
     res.send(data);
   });
 });
+
+app.get('/*', function(req, res){
+  res.render('index.ejs');
+});
+
+
 
 // this expression runs on server start, retrieves a list of current members and writes it to memberList
 members.getAllMembers(function(objects){
