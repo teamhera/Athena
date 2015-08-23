@@ -2,7 +2,6 @@
 
 
 var Raphael = require('Raphael');
-var usmap = require('usmap');
 var Home = require('./homeFactory.js');
 
 module.exports = function homeController($scope, $state, Home){
@@ -40,12 +39,6 @@ module.exports = function homeController($scope, $state, Home){
       $scope.stateMembers = $scope.stateMembers;
     });
   };
-
-  $('#map').usmap({
-  click: function(event, data) {
-    $scope.getStateMembers(data.name);
-  }
- });
 
 };
 
