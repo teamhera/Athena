@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var members = require('./memberController');
 var bills = require('./billController');
 var utils = require('./utilController');
+var fs = require('fs');
 
 var app = express();
 
