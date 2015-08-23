@@ -8,7 +8,7 @@ module.exports = function homeFactory($http){
   /*******************************************
    * Loads All Members Name and ID from server
    ******************************************/
-  
+
   function getAllMembers(){
     return $http({
       method: 'GET',
@@ -75,6 +75,25 @@ module.exports = function homeFactory($http){
     return $http({
       method: 'GET',
       url: '/members/historic/'+id,
+    })
+    .then(function(res){
+      return res.data;
+    });
+  }
+
+  function getMapData(){
+    return $http({
+      method: 'GET',
+      url: '/mapData',
+    })
+    .then(function(res){
+      return res.data;
+    });
+  }
+  function getCongressData(){
+    return $http({
+      method: 'GET',
+      url: '/congressData',
     })
     .then(function(res){
       return res.data;
