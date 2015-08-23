@@ -3,6 +3,9 @@
 
 var Raphael = require('Raphael');
 var Home = require('./homeFactory.js');
+var d3 = require('d3');
+var topojson = require('topojson');
+
 
 module.exports = function homeController($scope, $state, Home){
 
@@ -19,6 +22,7 @@ module.exports = function homeController($scope, $state, Home){
 
   $scope.switchView = function() {
     $scope.isMapView = $scope.isMapView ? false : true;
+    buildMap();
   };
 
   $scope.getStateMembers = function(state) {
@@ -39,6 +43,10 @@ module.exports = function homeController($scope, $state, Home){
       $scope.stateMembers = $scope.stateMembers;
     });
   };
+
+
+function buildMap(){
+}
 
 };
 
