@@ -26,8 +26,10 @@
   <div class="row">
   <!--Begin Bill Search Form-->
     <div class="col-sm-8 col-xs-10 col-sm-offset-2 col-xs-offset-1" style="text-align:center">
-      <input ng-model="searchField" type="text" class="form-control" placeholder="Bill Keyword Search"/>
-      <button class="btn btn-default" ng-click="getAllBills()"> Search </button>
+      <form>
+        <input ng-model="searchField" type="text" class="form-control" placeholder="Bill Keyword Search"/>
+        <button type="submit" class="btn btn-default" ng-click="getAllBills()"> Search </button>
+      </form>
     </div>
   <!--End Bill Search Form-->
 
@@ -65,7 +67,7 @@
           <div class="bill_text col-sm-10 col-xs-9">
             <span class="bill-question">
               <p>
-                <h3><a href="/bill/{{ bill.id }}" target="_blank">{{ bill.display_number}}</a></h3>
+                <h3><a href="/bill/{{ bill.id }}">{{ bill.display_number}}</a></h3>
               </p>
             </span>
                 <!-- Show Bill Details if available -->

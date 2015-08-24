@@ -63,15 +63,5 @@ module.exports = function billController($scope, Home){
     }
   };
 
-  $scope.queryBuilder = function(){
-    var sortable = {};
-    var filterableWithoutOperators = {
-      q: ""
-    };
-    var filterableWithOperators = {};
-    var other = {};
-
-  };
-
 };
 
