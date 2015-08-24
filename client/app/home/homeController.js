@@ -14,6 +14,7 @@ module.exports = function homeController($scope, $state, Home){
   $scope.trendingMembers = Home.trendingMembers;
   $scope.isMapView = false;
   $scope.stateMembers = [];
+  $scope.stateIdName = {1: 'Alabama', 2: 'Alaska', 4: 'Arizona', 5: 'Arkansas', 6: 'California', 8: 'Colorado', 9: 'Connecticut', 10: 'Delaware', 12: 'Florida', 13: 'Georgia', 15: 'Hawaii', 16: 'Idaho', 17: 'Illinois', 18: 'Indiana', 19: 'Iowa', 20: 'Kansas', 21: 'Kentucky', 22: 'Lousiana', 23: 'Maine', 24: 'Maryland', 25: 'Massachusetts', 26: 'Michigan', 27: 'Minnesota', 28: 'Mississippi', 29: 'Missouri', 30: 'Montana', 31: 'Nebraska', 32: 'Nevada', 33: 'New Hampshire', 34: 'New Jersey', 35: 'New Mexico', 36: 'New York', 37: 'North Carolina', 38: 'North Dakota', 39: 'Ohio', 40: 'Oklahoma', 41: 'Oregon', 42: 'Pennsylvania', 44: 'Rhode Island', 45: 'South Carolina', 46: 'South Dakota', 47: 'Tennessee', 48: 'Texas', 49: 'Utah', 50: 'Vermont', 51: 'Virginia', 53: 'Washington', 54: 'West Virginia', 55: 'Wisconsin', 56: 'Wyoming'};
 
   $scope.gotoMember = function(){
     var id = $scope.memberSearch.id;
@@ -45,6 +46,22 @@ module.exports = function homeController($scope, $state, Home){
     });
   };
 
+
+  $scope.getDistrictMember = function(stateDistrictId){
+    stateDistrictId = stateDistrictId.toString();
+    //Need to check if state ID is one or two digits before slicing
+    var stateId = stateDistrictId.length === 3 ? stateDistrictId.slice(0, 1) : stateDistrictId.slice(0, 2);
+    var stateName = $scope.stateIdName[stateId];
+    //District ID is always the last 2 digits
+    var districtId = stateDistrictId.slice(-2);
+    console.log('stateId: ' + stateId);
+    console.log('stateName: ' + stateName);
+    console.log('districtId: ' + districtId);
+    if(districtId[0] === 0){
+      //Slice 0 out of district ID if single digit
+      districtId = districtId[1];
+    }
+  };
 
   function buildMap(){
     var us;
@@ -87,7 +104,7 @@ module.exports = function homeController($scope, $state, Home){
             .enter().append("path")
               .attr("d", path)
             .on("click", function(d){
-              console.log(d.id);
+              $scope.getDistrictMember(d.id);
             })
             .append("title")
               .text(function(d) { return d.id; });
