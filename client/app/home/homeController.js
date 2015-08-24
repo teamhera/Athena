@@ -84,8 +84,9 @@ module.exports = function homeController($scope, $state, Home){
       Home.getCongressData()
       .then(function(data){
         congress = data;
-        var width = 960,
-            height = 600;
+        var margin = {top: 20, right: 20, bottom: 60, left: 40},
+              width = 960,
+              height = 600;
 
         var projection = d3.geo.albersUsa()
             .scale(1280)
@@ -94,7 +95,7 @@ module.exports = function homeController($scope, $state, Home){
         var path = d3.geo.path()
             .projection(projection);
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select("#map").append("svg")
             .attr("width", width)
             .attr("height", height);
 
