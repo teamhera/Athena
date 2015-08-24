@@ -6,17 +6,12 @@
 
     <div class="input-fields col-sm-3">
       <div><!-- Add another politician -->
-        <span>Add more!</span>
+        <span><h3>Add Another Politician</h3></span>
         <input class="form-control input-sm" type="text" placeholder="Search by Politician Name" ng-model="addMember" typeahead="person as person.title for person in allMembers | filter:{role: members[memberOrigin].role} | filter: $viewValue | limitTo:5" />
         <button ng-disabled="memberCounter > 3" class="btn btn-default btn-sm text-capitalize" ng-click="loadMember()"> Add {{members[memberOrigin].role}} </button> 
       </div> 
 
-      <div class="bill-title"><!-- Recent Votes filter bar -->
-        <span>Recent Votes</span>
-      </div>
-      <div class="bill-search">
-        <input type="text" class="form-control" placeholder="Filter Bills by Keyword" ng-model="billKeyword" />
-      </div>
+      
     </div>
 
     <div ng-repeat="member in members">
@@ -44,10 +39,24 @@
 
       </div>
     </div> <!--end of ng-repeat -->
+
+    <div class="nav-selection col-sm-12">
+      <ul class="nav nav-pills col-sm-6 col-sm-offset-3">
+        <li ng-class="{active: activePill[0]}" ng-click="selectPill(0)"><a href="#">Recent Votes</a></li>
+        <li ng-class="{active: activePill[1]}" ng-click="selectPill(1)"><a href="#">Member Historic Votes</a></li>
+        <li ng-class="{active: activePill[2]}" ng-click="selectPill(2)"><a href="#">Funding History</a></li>
+      </ul>
+    </div>
   </section>
 
 
-  <section class="row"> <!-- row 2: Bills Section -->
+  <section class="row" ng-hide="!activePill[0]"> <!-- row 2: Bills Section -->
+    <div class="bill-search col-sm-3 col-sm-offset-1"><!-- Recent Votes filter bar -->
+      <span>Recent Votes</span>
+    </div>
+    <div class="bill-search col-sm-2">
+      <input type="text" class="form-control" placeholder="Filter Bills by Keyword" ng-model="billKeyword" />
+    </div>
 
 
     <div class="bills col-sm-12" ng-repeat="bill in members[memberOrigin].votes | filter:billKeyword | limitTo: 5">
@@ -85,18 +94,19 @@
   </section><!--End of row 2: Bills Section-->
 
 
-  <section class="row"> <!-- row 3: Charts -->
-
-    <div class="col-sm-8 col-sm-offset-2">
-      <div class="legend">
-        <h2>Historic Member Votes</h2>
-        <span class="favor">In Favor of Bill</span>
-        <span class="opposed">Opposed to Bill</span>
-        <span class="other">Abstaining, Not Present, or other Vote</span>
+  <section class="row" ng-hide="!activePill[1]"> <!-- row 3: Charts -->
+    <div>
+      <div class="col-sm-8 col-sm-offset-2">
+        <div class="legend">
+          <h2>Historic Member Votes</h2>
+          <span class="favor">In Favor of Bill</span>
+          <span class="opposed">Opposed to Bill</span>
+          <span class="other">Abstaining, Not Present, or other Vote</span>
+        </div>
       </div>
-    </div>
 
-    <div class="col-sm-12 graph center-align">
+      <div class="col-sm-12 graph center-align">
+      </div>
     </div>
   
   </section>

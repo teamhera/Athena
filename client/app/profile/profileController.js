@@ -14,6 +14,7 @@ module.exports = function profileController($scope, $stateParams, Home){
   $scope.memberIndex = 0;
   $scope.currentBill = null;
   $scope.memberCounter = 0;
+  $scope.activePill = [1,0,0];
 
   getMember(memberId1, $scope.members);
  
@@ -87,6 +88,11 @@ module.exports = function profileController($scope, $stateParams, Home){
   $scope.showValue = function(message,input){
     window.console.log(message,' ', input);
     return true;
+  };
+
+  $scope.selectPill = function(input){
+    $scope.activePill = [0,0,0];
+    $scope.activePill[input] = 1;
   };
 
   function calculateAge(birthday) { // birthday is a date
