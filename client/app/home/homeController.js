@@ -84,8 +84,7 @@ module.exports = function homeController($scope, $state, Home){
       Home.getCongressData()
       .then(function(data){
         congress = data;
-        var margin = {top: 20, right: 20, bottom: 60, left: 40},
-              width = 960,
+          var width = 960,
               height = 600;
 
         var projection = d3.geo.albersUsa()
