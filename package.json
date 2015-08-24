@@ -39,6 +39,7 @@
     "angular-chart": "^0.3.2",
     "angular-loading-bar": "^0.8.0",
     "angular-mocks": "~1.4.3",
+    "angular-sanitize": "^1.4.4",
     "angular-ui-bootstrap": "^0.13.3",
     "angular-ui-router": "~0.2.15",
     "bluebird": "^2.9.34",

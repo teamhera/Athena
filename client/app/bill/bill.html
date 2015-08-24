@@ -27,8 +27,10 @@
         </ul>
       </div>
       <div class="col-sm-10">
-        <input ng-model="searchField" type="text" class="form-control" placeholder="Bill Keyword Search"/>
-        <button class="btn btn-default" ng-click="getAllBills()"> Search </button>
+        <form>
+          <input ng-model="searchField" type="text" class="form-control" placeholder="Bill Keyword Search"/>
+          <button type="submit" class="btn btn-default" ng-click="getAllBills()"> Search </button>
+        </form>
       </div>
     </div>
   <!--End Bill Search Form-->
@@ -67,7 +69,7 @@
           <div class="bill_text col-sm-10 col-xs-9">
             <span class="bill-question">
               <p>
-                <h3><a href="/bill/{{ bill.id }}" target="_blank">{{ bill.display_number}}</a></h3>
+                <h3><a href="/bill/{{ bill.id }}">{{ bill.display_number}}</a></h3>
               </p>
             </span>
                 <!-- Show Bill Details if available -->
@@ -93,7 +95,7 @@
         </div>
         <div class="row">
           <div class="bill_text col-sm-2 col-xs-3">
-            <span>Sponsor: {{bill.sponsor.name}}</span>
+            <span><a href="/bill/{{ bill.id }}">Sponsor: </a>{{bill.sponsor.name}}</span>
           </div>
           <div class="bill_text col-sm-2 col-xs-2">
             <span>Introduced:<br><span data-ng-bind="bill.introduced_date"</span></span>
