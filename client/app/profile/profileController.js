@@ -32,7 +32,7 @@ module.exports = function profileController($scope, $stateParams, Home){
       members[$scope.memberIndex].age = calculateAge(new Date(members[$scope.memberIndex].birthday));
       members[$scope.memberIndex].currentIndex = $scope.memberIndex;
       //Load D3 Graph when politican is added
-      loadGraph(id, members[$scope.memberIndex].fullname);
+      loadGraph(id, members[$scope.memberIndex].fullname, members[$scope.memberIndex].id);
       return members;
     }).then(function(members){
       getMemberVotes(members[$scope.memberIndex]);
@@ -109,13 +109,14 @@ module.exports = function profileController($scope, $stateParams, Home){
     * Remove Compared Politician
     ******************************************/
     $scope.removePolitician = function(index) {
+      var id  = "#" + $scope.members[index].id;
       delete $scope.members[index];
       $scope.memberCounter--;
       if($scope.members[$scope.memberOrigin] === undefined){
         $scope.memberOrigin = Object.keys($scope.members)[0];
       }
       //Remove Vote Graph
-      $(".graph svg:last-child").remove();
+      $('.graph').find(id).remove();
     };
 
 
@@ -123,7 +124,7 @@ module.exports = function profileController($scope, $stateParams, Home){
   /*******************************************
    * Plot Historical Votes on Graph
    ******************************************/
-  function loadGraph(memberId, memberName){
+  function loadGraph(memberId, memberName, graphId){
       Home.getHistoricVotes(memberId)
         .then(function(data){
 
@@ -172,6 +173,7 @@ module.exports = function profileController($scope, $stateParams, Home){
 
           //Append svg to graph element with sizing
           var vis = d3.select(".graph").append("svg")
+              .attr("id",graphId)
               .attr("width", width + margin.left + margin.right)
               .attr("height", height + margin.top + margin.bottom)
             .append("g")
