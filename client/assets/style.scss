@@ -239,6 +239,7 @@ Bills Styling
 }
 
 .bill-title{
+  margin-top: 64px;
   height: 34px;
   line-height: 34px;
   font-size: 32px;
@@ -271,16 +272,6 @@ Bills Styling
   }
 }
 
-.vote-left {
-  float: left;
-  vertical-align: middle;
-}
-
-.vote-right {
-  float: right;
-  margin-right: 20px;
-}
-
 .positive {
   background: rgba(1,176,1, 0.5);
 }
@@ -294,6 +285,7 @@ Bills Styling
 }
 
 .neutral-image{
+  margin: auto;
   height: 64px;
   line-height: 64px;
   width: 64px;
@@ -302,10 +294,8 @@ Bills Styling
 .bill {
   text-align: center;
   margin: 3px 0 0 5px;
-  padding: 5px;
+  padding: 5px 0;
   border: 1px solid $gray;
-  @include border-radius(25px); 
-
 
   .bill-question {
     font-size: 110%;
@@ -319,6 +309,10 @@ Bills Styling
   .bill_status {
     font-size: 110%;
   }
+}
+
+.round-edge{
+  border-radius: 10px;
 }
 
 
