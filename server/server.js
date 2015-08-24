@@ -200,27 +200,6 @@ app.get('/billvotes/*', function(req, res){
   });
 });
 
-
-app.get('/mapData', function(req, res){
-  fs.readFile(path.join(__dirname, '../us.json'), function(err, data){
-    if(err){
-      console.log(err);
-    }
-    res.send(data);
-  });
-});
-
-app.get('/congressData', function(req, res){
-  fs.readFile(path.join(__dirname, '../us-congress-114.json'), function(err, data){
-    console.log("READING DONE");
-    if(err){
-      console.log(err);
-    }
-    console.log(data);
-    res.send(data);
-  });
-});
-
 app.get('/*', function(req, res){
   res.render('index.ejs');
 });
