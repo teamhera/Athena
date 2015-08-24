@@ -23,7 +23,33 @@ fonts
 
 $font-stack: Helvetica, sans-serif;
 
+@font-face {
+  font-family: 'PT Sans 1';
+  font-style: normal;
+  font-weight: 700;
+  src: local('PT Sans'), local('PTSans-Regular'), url(https://fonts.gstatic.com/s/ptsans/v8/BJVWev7_auVaQ__OU8Qih1KPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+}
 
+@font-face {
+  font-family: 'PT Sans 2';
+  font-style: normal;
+  font-weight: 400;
+  src: local('PT Sans'), local('PTSans-Regular'), url(https://fonts.gstatic.com/s/ptsans/v8/BJVWev7_auVaQ__OU8Qih1KPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Lato Hairline'), local('Lato-Hairline'), url(https://fonts.gstatic.com/s/lato/v11/h3_FseZLI76g1To6meQ4zX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Lato 2';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Hairline'), local('Lato-Hairline'), url(https://fonts.gstatic.com/s/lato/v11/h3_FseZLI76g1To6meQ4zX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+}
 
 
 /******************************************
@@ -66,6 +92,44 @@ a {
   }
 }
 /******************************************
+Navigation Banner
+******************************************/
+.header{
+  margin-top: 0;
+}
+
+
+#nav-banner{
+  background: rgba(71,145,210,1);
+  font-family: 'Lato';
+  color: white;
+}
+
+.front-nav-button{
+  display: inline-block;
+  height: 64px;
+  line-height: 64px;
+  color: white;
+  font-size: 2em;
+  padding: 22px;
+}
+
+.front-nav-button:hover{
+  color: #1ac6ff;
+}
+
+.other-text{
+  font-family: 'Lato 2';
+  color: #555;
+}
+
+.banner-header-title{
+  font-family: 'PT Sans 1';
+}
+
+
+
+/******************************************
 Selection Bar
 ******************************************/
 
@@ -74,22 +138,28 @@ td.active{
 }
 
 .nav-bar-view{
-  border-top: 1px solid #777;
+  background: white;
   border-bottom: 1px solid #777;
 }
 
 .nav-bar-view-choice{
+  font-family: 'Lato';
+  font-size: 1.7em;
   background: white;
   display: inline-block;
   line-height: 40px;
   padding: 15px;
   margin: 0;
   text-align: center;
-  font-size: 1.2em; 
 }
 
 .active-choice{
-  background: darkorange;
+  background: #f89406;
+  color: white;
+}
+
+.mybutton{
+  display: inline-block;
 }
 
 /******************************************
@@ -338,7 +408,7 @@ Bills Styling
 Overall - overwrite
 ******************************************/
 .row{
-  padding: 25px 0;
+  padding: 0 0 25px 0;
 }
 
 .round-edge{
@@ -346,7 +416,11 @@ Overall - overwrite
 }
 
 .nav-selection{
-  margin: 15px 0;
+  margin: 0 0 15px 0;
+}
+
+.main{
+  padding:0;
 }
 
 .bar-legend li {
