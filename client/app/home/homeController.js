@@ -21,7 +21,7 @@ module.exports = function homeController($scope, $state, Home){
   };
 
   $scope.switchView = function() {
-    $scope.isMapView = $scope.isMapView ? false : true;
+    $scope.isMapView = !$scope.isMapView;
     //builds d3 Map on view switch
     buildMap();
   };

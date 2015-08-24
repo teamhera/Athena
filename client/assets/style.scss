@@ -1,6 +1,6 @@
-/*
+/******************************************
 Colors
-*/
+******************************************/
 
 $red: #ee4035;
 $orange: #f37736;
@@ -14,15 +14,21 @@ $red-rgb: (238,64,53);
 $green-rgb: (123,192,67);
 $gray-rgb: (187,187,187);
 
-/*
-Font
-*/
+
+
+
+/******************************************
+fonts
+******************************************/
 
 $font-stack: Helvetica, sans-serif;
 
-/*
-Mixins
-*/
+
+
+
+/******************************************
+mixins
+******************************************/
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
      -moz-border-radius: $radius;
@@ -59,10 +65,36 @@ a {
     margin: 40px 0 5px 0;
   }
 }
+/******************************************
+Selection Bar
+******************************************/
 
-/*
+td.active{
+  background: red;
+}
+
+.nav-bar-view{
+  border-top: 1px solid #777;
+  border-bottom: 1px solid #777;
+}
+
+.nav-bar-view-choice{
+  background: white;
+  display: inline-block;
+  line-height: 40px;
+  padding: 15px;
+  margin: 0;
+  text-align: center;
+  font-size: 1.2em; 
+}
+
+.active-choice{
+  background: darkorange;
+}
+
+/******************************************
 Image Styling
-*/
+******************************************/
 
 .member-profile-picture, .second-member-profile-pic, .home-profile-pic {
   @include border-radius(20px);
@@ -118,12 +150,19 @@ table { border-spacing: 5px; } /* cellspacing */
 
 th, td { padding: 5px; } /* cellpadding */
 
-/*
-Profile Template Style
-*/
 
-.profiles-fix {
-  height: 150px;
+
+
+
+/******************************************
+Profile Template
+******************************************/
+.member-name{
+  font-size: 14px;
+}
+
+.member-info{
+  font-size: 12px;
 }
 
 .profiles {
@@ -210,12 +249,19 @@ Profile Template Style
 }
 
 
-/*
+/******************************************
 Bills Styling
-*/
-.bill-votes {
-  margin-top: 30px;
-  margin-bottom: 15px;
+******************************************/
+.input-fields{
+  margin-left: 100px;
+  padding-top: 40px;
+}
+
+.bill-search{
+  height: 34px;
+  line-height: 34px;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .profile-addMember {
@@ -229,9 +275,6 @@ Bills Styling
   }
 }
 
-.bill-search {
-  margin-bottom: 15px;
-}
 
 .member-vote {
   position: relative;
@@ -240,10 +283,7 @@ Bills Styling
   vertical-align: middle;
   font-size: 120%;
   font-weight: 600;
-  margin-top: 15px;
-  margin-left: 20px;
   padding: 5px;
-  background: rgba(187,187,187, 0.5);
 
   p {
     margin: 0;
@@ -251,14 +291,12 @@ Bills Styling
   }
 }
 
-.vote-left {
-  float: left;
-  vertical-align: middle;
-}
-
-.vote-right {
-  float: right;
-  margin-right: 20px;
+.neutral-text{
+  font-size: 1em;
+  margin: auto;
+  height: 64px;
+  line-height: 64px;
+  width: 64px;
 }
 
 .positive {
@@ -269,12 +307,15 @@ Bills Styling
   background: rgba(238,64,53, 0.7);
 }
 
+.neutral {
+  background: sandybrown;
+}
+
 .bill {
   text-align: center;
-  margin: 10px 0 0 5px;
-  padding: 5px;
-  border: 1px solid $gray;
-  @include border-radius(25px);
+  margin: 3px 0 0 5px;
+  padding: 5px 0;
+  border: 1px solid gray;
 
 
   .bill-question {
@@ -291,9 +332,26 @@ Bills Styling
   }
 }
 
-/*
+
+
+/******************************************
+Overall - overwrite
+******************************************/
+.row{
+  padding: 25px 0;
+}
+
+.round-edge{
+  border-radius: 10px;
+}
+
+.nav-selection{
+  margin: 15px 0;
+}
+
+/******************************************
 D3 Styling
-*/
+******************************************/
 .legend {
   margin: 20px 0 0 5px;
   text-align: center;
