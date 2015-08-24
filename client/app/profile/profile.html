@@ -47,7 +47,7 @@
   </section>
 
 
-  <section ng-if="showValue('members', members)" class="row"> <!-- row 2: Bills Section -->
+  <section class="row"> <!-- row 2: Bills Section -->
 
 
     <div class="bills col-sm-12" ng-repeat="bill in members[memberOrigin].votes | filter:billKeyword | limitTo: 5">
