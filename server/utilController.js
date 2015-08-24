@@ -50,7 +50,7 @@ module.exports = {
       youtubeid: listing.youtubeid,
       website: listing.roles[listing.roles.length - 1].website,
       phone: listing.roles[listing.roles.length - 1].phone,
-      district: listing.roles[list.roles.length - 1].distrct
+      district: listing.roles[listing.roles.length - 1].distrct
     };
   },
 
