@@ -15,7 +15,7 @@
     </div>
 
     <div ng-repeat="member in members">
-      <div class="col-sm-2 profiles-fix center-align">
+      <div ng-if="showValue('members', members)" class="col-sm-2 profiles-fix center-align">
         <img class="member-profile-picture" src="https://www.govtrack.us/data/photos/{{ member.id }}-100px.jpeg" onerror="this.src='images/icons/default.png'">
 
         <div class="member-name">
@@ -58,8 +58,7 @@
       <input type="text" class="form-control" placeholder="Filter Bills by Keyword" ng-model="billKeyword" />
     </div>
 
-
-    <div class="bills col-sm-12" ng-repeat="bill in members[memberOrigin].votes | filter:billKeyword | limitTo: 5">
+    <div class="bills col-sm-12" ng-repeat="bill in members[memberOrigin].votes | filter:billKeyword | limitTo: 100">
 
       <div class="bill col-sm-12">
         <!-- Bill info -->
@@ -80,7 +79,7 @@
 
         <div ng-if="updateCurrentBill( members[memberOrigin].votes.indexOf(bill))" ng-repeat="(key,value) in members">
           <div class="col-sm-2">
-            <div class="col-sm-6 col-sm-offset-1 round-edge vote">
+            <div ng-if="value.votes[currentBill] !== undefined"class="col-sm-6 col-sm-offset-1 round-edge vote">
               <img ng-if="votedYes(value.votes[currentBill])" src="/images/icons/thumb-up.png" alt="yes">
               <img ng-if="votedNo(value.votes[currentBill])" src="/images/icons/thumb-down.png" alt="no">
               <div ng-if="votedNeutral(value.votes[currentBill])" class="neutral-text">{{value.votes[currentBill].vote}}</div>
