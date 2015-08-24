@@ -13,6 +13,7 @@ module.exports = function profileController($scope, $stateParams, Home){
   $scope.memberOrigin = 0;
   $scope.memberIndex = 0;
   $scope.currentBill = null;
+  $scope.memberCounter = 0;
 
   getMember(memberId1, $scope.members);
  
@@ -23,18 +24,19 @@ module.exports = function profileController($scope, $stateParams, Home){
   function getMember(id, members){
     Home.getMember(id)
     .then(function(data){
-      $scope.memberIndex++;
       if(!Object.keys(members).length){
         $scope.memberOrigin = $scope.memberIndex;
       }
+      $scope.memberCounter++;
       members[$scope.memberIndex] = data;
       members[$scope.memberIndex].age = calculateAge(new Date(members[$scope.memberIndex].birthday));
       members[$scope.memberIndex].currentIndex = $scope.memberIndex;
       //Load D3 Graph when politican is added
-      //loadGraph(id, members[$scope.memberIndex].fullname);
+      loadGraph(id, members[$scope.memberIndex].fullname);
       return members;
     }).then(function(members){
       getMemberVotes(members[$scope.memberIndex]);
+      $scope.memberIndex++;
     }).catch(function(err){
       throw err;
     });        
@@ -48,7 +50,7 @@ module.exports = function profileController($scope, $stateParams, Home){
   function getMemberVotes(member){
     Home.getMemberVotes(member.id)
     .then(function(votes){
-      $scope.members[$scope.memberIndex].votes = votes;
+      $scope.members[member.currentIndex].votes = votes;
     }).catch(function(err){
       throw err;
     });
@@ -59,7 +61,6 @@ module.exports = function profileController($scope, $stateParams, Home){
   *********************************************/
 
   $scope.votedYes = function(input){
-    window.console.log('vote is', input);
     return input.vote === 'Yes' || input.vote === 'Aye' || input.vote === 'Yea';
   };
 
@@ -71,17 +72,21 @@ module.exports = function profileController($scope, $stateParams, Home){
     return $scope.votedYes(input) === $scope.votedNo(input);
   };
 
+
+  /********************************************
+  * helper functions
+  *********************************************/
   $scope.updateCurrentBill = function(input){
     //window.console.log('input is ', input);
     $scope.currentBill = input;
     return true;
   };
 
-  $scope.showMembers = function(){
-    window.console.log($scope.members);
-    return false;
+  //for testing
+  $scope.showValue = function(message,input){
+    window.console.log(message,' ', input);
+    return true;
   };
-
 
   function calculateAge(birthday) { // birthday is a date
     var ageDifMs = Date.now() - birthday.getTime();
@@ -104,19 +109,10 @@ module.exports = function profileController($scope, $stateParams, Home){
     ******************************************/
     $scope.removePolitician = function(index) {
       delete $scope.members[index];
+      $scope.memberCounter--;
       //Remove Vote Graph
       $(".graph svg:last-child").remove();
     };
-
-
-
-
-
-
-
-
-
-
 
 
 
