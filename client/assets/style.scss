@@ -271,19 +271,13 @@ Bills Styling
   }
 }
 
-.positive {
-  background: rgba(1,176,1, 0.5);
+.vote{
+  border: 1px solid #999;
+  background: linear-gradient(to bottom, #ccc, #bbb);
 }
 
-.negative {
-  background: rgba(238,64,53, 0.7);
-}
-
-.neutral {
-  background: sandybrown;
-}
-
-.neutral-image{
+.neutral-text{
+  font-size: 1em;
   margin: auto;
   height: 64px;
   line-height: 64px;
@@ -294,7 +288,7 @@ Bills Styling
   text-align: center;
   margin: 3px 0 0 5px;
   padding: 5px 0;
-  border: 1px solid $gray;
+  border: 1px solid gray;
 
 
   .bill-question {
@@ -311,9 +305,6 @@ Bills Styling
   }
 }
 
-.round-edge{
-  border-radius: 10px;
-}
 
 
 /******************************************
@@ -323,6 +314,9 @@ Overall - overwrite
   padding: 25px 0;
 }
 
+.round-edge{
+  border-radius: 10px;
+}
 
 /******************************************
 D3 Styling

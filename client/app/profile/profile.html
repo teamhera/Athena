@@ -8,7 +8,7 @@
       <div><!-- Add another politician -->
         <span>Add more!</span>
         <input class="form-control input-sm" type="text" placeholder="Search by Politician Name" ng-model="addMember" typeahead="person as person.title for person in allMembers | filter:{role: members[memberOrigin].role} | filter: $viewValue | limitTo:5" />
-        <button ng-disabled="memberCounter > 3" class="btn btn-default btn-sm text-capitalize" ng-click="loadMember()"> Compare {{members[memberOrigin].role}} </button> 
+        <button ng-disabled="memberCounter > 3" class="btn btn-default btn-sm text-capitalize" ng-click="loadMember()"> Add {{members[memberOrigin].role}} </button> 
       </div> 
 
       <div class="bill-title"><!-- Recent Votes filter bar -->
@@ -47,10 +47,8 @@
   </section>
 
 
+  <section ng-if="showValue('members', members)" class="row"> <!-- row 2: Bills Section -->
 
-
-
-  <section class="row"> <!-- row 2: Bills Section -->
 
     <div class="bills col-sm-12" ng-repeat="bill in members[memberOrigin].votes | filter:billKeyword | limitTo: 5">
 
@@ -71,12 +69,12 @@
           </div>
         </div>
 
-        <div ng-if="updateCurrentBill(members[memberOrigin].votes.indexOf(bill))" ng-repeat="(key,value) in members">
+        <div ng-if="updateCurrentBill( members[memberOrigin].votes.indexOf(bill))" ng-repeat="(key,value) in members">
           <div class="col-sm-2">
-            <div class="col-sm-6 col-sm-offset-1 round-edge" ng-class="{ negative: votedNo(value.votes[currentBill]), positive: votedYes(value.votes[currentBill]), neutral: votedNeutral(value.votes[currentBill])}">
+            <div class="col-sm-6 col-sm-offset-1 round-edge vote">
               <img ng-if="votedYes(value.votes[currentBill])" src="/images/icons/thumb-up.png" alt="yes">
               <img ng-if="votedNo(value.votes[currentBill])" src="/images/icons/thumb-down.png" alt="no">
-              <div ng-if="votedNeutral(value.votes[currentBill])" class="neutral-image">{{value.votes[currentBill].vote}}</div>
+              <div ng-if="votedNeutral(value.votes[currentBill])" class="neutral-text">{{value.votes[currentBill].vote}}</div>
             </div>
           </div>
         </div>

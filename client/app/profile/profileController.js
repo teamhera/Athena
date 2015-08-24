@@ -59,13 +59,14 @@ module.exports = function profileController($scope, $stateParams, Home){
   /********************************************
   * return vote property of input
   *********************************************/
-
   $scope.votedYes = function(input){
-    return input.vote === 'Yes' || input.vote === 'Aye' || input.vote === 'Yea';
+    var vote = input.vote;
+    return vote === 'Yes' || vote === 'Aye' || vote === 'Yea';
   };
 
   $scope.votedNo = function(input){
-    return input.vote === 'Nay' || input.vote === 'No';
+    var vote = input.vote;
+    return vote === 'Nay' || vote === 'No';
   };
 
   $scope.votedNeutral = function(input){
@@ -110,6 +111,9 @@ module.exports = function profileController($scope, $stateParams, Home){
     $scope.removePolitician = function(index) {
       delete $scope.members[index];
       $scope.memberCounter--;
+      if($scope.members[$scope.memberOrigin] === undefined){
+        $scope.memberOrigin = Object.keys($scope.members)[0];
+      }
       //Remove Vote Graph
       $(".graph svg:last-child").remove();
     };
