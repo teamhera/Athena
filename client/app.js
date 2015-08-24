@@ -3,6 +3,7 @@ require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('angular-animate');
 require('angular-loading-bar');
+require('angular-sanitize');
 var home = require('./app/home');
 var profile = require('./app/profile');
 var bill = require('./app/bill');
@@ -16,6 +17,7 @@ var congressmanprofile = angular.module('congressmanprofile', [
   'angular-loading-bar', 
   'ngAnimate',
   'chart.js',
+  'ngSanitize',
   home.name,
   profile.name,
   bill.name

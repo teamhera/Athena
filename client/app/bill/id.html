@@ -1,12 +1,18 @@
 <div style="text-align:center">
   <div class="row">
-    <div class="col-md-3">
-      <img class="member-profile-picture img-responsive center-block" src="https://www.govtrack.us/data/photos/{{ bill.sponsor.id }}-100px.jpeg" onerror="this.src='images/icons/default.png'">
+    <div class="col-md-2 col-md-offset-2">
+        <img style="max-width:100px" class="member-profile-picture img-responsive center-block" src="https://www.govtrack.us/data/photos/{{ bill.sponsor.id }}-100px.jpeg" onerror="this.src='images/icons/default.png'" />
+      <h6 style="text-size:2em"><a href="./profile/{{bill.sponsor.id}}">Sponsor: </a>{{bill.sponsor.name}}</h6>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-sm-10 col-sm-offset-1">
       <h2 data-ng-bind="failMessage"></h2>
       <h2 data-ng-bind="bill.display_number"></h2>
       <h3 data-ng-bind="bill.title_without_number"></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h5>Status</h5><h5 data-ng-bind="bill.current_status_label"></h5>
     </div>
   </div>
 
@@ -18,4 +24,12 @@
   </div>
 
   </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul>
+        <li ng-repeat="item in bill.major_actions.slice().reverse()"><h6 data-ng-bind="formatDate(item[0])"></h6><h4 ng-controller="idController" ng-bind-html="item[3]"></h4><br></li>
+      </ul>
+    </div>
+  </div>
+
 </div>

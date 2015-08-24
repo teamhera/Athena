@@ -95,7 +95,7 @@
         </div>
         <div class="row">
           <div class="bill_text col-sm-2 col-xs-3">
-            <span>Sponsor: {{bill.sponsor.name}}</span>
+            <span><a href="/bill/{{ bill.id }}">Sponsor: </a>{{bill.sponsor.name}}</span>
           </div>
           <div class="bill_text col-sm-2 col-xs-2">
             <span>Introduced:<br><span data-ng-bind="bill.introduced_date"</span></span>

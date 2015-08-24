@@ -16,5 +16,12 @@ module.exports = function idController($scope, $stateParams, Home){
     });
   };
 
+  $scope.formatDate = function(date){
+    date = date.slice(date.indexOf('(') + 1, date.indexOf(')'));
+    date = date.split(', ');
+    var theDay = new Date(date[0], date[1], date[2], date[3]);
+    return theDay.toDateString();
+  };
+
   $scope.getBill();
 };
