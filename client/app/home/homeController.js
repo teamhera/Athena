@@ -14,8 +14,8 @@ module.exports = function homeController($scope, $state, Home){
   $scope.trendingMembers = Home.trendingMembers;
   $scope.isMapView = false;
   $scope.stateMembers = [];
-  $scope.stateIdName = {1: 'Alabama', 2: 'Alaska', 4: 'Arizona', 5: 'Arkansas', 6: 'California', 8: 'Colorado', 9: 'Connecticut', 10: 'Delaware', 12: 'Florida', 13: 'Georgia', 15: 'Hawaii', 16: 'Idaho', 17: 'Illinois', 18: 'Indiana', 19: 'Iowa', 20: 'Kansas', 21: 'Kentucky', 22: 'Lousiana', 23: 'Maine', 24: 'Maryland', 25: 'Massachusetts', 26: 'Michigan', 27: 'Minnesota', 28: 'Mississippi', 29: 'Missouri', 30: 'Montana', 31: 'Nebraska', 32: 'Nevada', 33: 'New Hampshire', 34: 'New Jersey', 35: 'New Mexico', 36: 'New York', 37: 'North Carolina', 38: 'North Dakota', 39: 'Ohio', 40: 'Oklahoma', 41: 'Oregon', 42: 'Pennsylvania', 44: 'Rhode Island', 45: 'South Carolina', 46: 'South Dakota', 47: 'Tennessee', 48: 'Texas', 49: 'Utah', 50: 'Vermont', 51: 'Virginia', 53: 'Washington', 54: 'West Virginia', 55: 'Wisconsin', 56: 'Wyoming'};
-
+  $scope.stateIdName = {1: 'AL', 2: 'AK', 4: 'AZ', 5: 'AR', 6: 'CA', 8: 'CO', 9: 'CT', 10: 'DE', 11: 'DC', 12: 'FL', 13: 'GA', 15: 'HI', 16: 'ID', 17: 'IL', 18: 'IN', 19: 'IA', 20: 'KS', 21: 'KY', 22: 'LA', 23: 'ME', 24: 'MD', 25: 'MA', 26: 'MI', 27: 'MN', 28: 'MS', 29: 'MO', 30: 'MT', 31: 'NE', 32: 'NV', 33: 'NH', 34: 'NJ', 35: 'NM', 36: 'NY', 37: 'NC', 38: 'ND', 39: 'OH', 40: 'OK', 41: 'OR', 42: 'PA', 44: 'RI', 45: 'SC', 46: 'SD', 47: 'TN', 48: 'TX', 49: 'UT', 50: 'VT', 51: 'VA', 53: 'WA', 54: 'WV', 55: 'WI', 56: 'WY'};
+  $scope.districtMember = [];
   $scope.gotoMember = function(){
     var id = $scope.memberSearch.id;
     $state.go('profile', {id:id});
@@ -27,40 +27,54 @@ module.exports = function homeController($scope, $state, Home){
     console.log($scope.allMembers);
   };
 
-  $scope.getStateMembers = function(state) {
-    $scope.stateMembers = [];
+  // $scope.getStateMembers = function(state) {
+  //   $scope.stateMembers = [];
 
-    for (var i = 0; i < $scope.allMembers.length; i++){
-      var memberTitle = $scope.allMembers[i].title;
-      if(memberTitle.match(/.*\[.*\-(.{2})/)){
-        var memberState = memberTitle.match(/.*\[.*\-(.{2})/)[1];
-        if (memberState === state){
-           $scope.stateMembers.push($scope.allMembers[i]);
-        }
-      } else {
-        console.log("did not work ", memberTitle);
-      }
-    }
-    $scope.$apply(function(){
-      $scope.stateMembers = $scope.stateMembers;
-    });
-  };
+  //   for (var i = 0; i < $scope.allMembers.length; i++){
+  //     var memberTitle = $scope.allMembers[i].title;
+  //     if(memberTitle.match(/.*\[.*\-(.{2})/)){
+  //       var memberState = memberTitle.match(/.*\[.*\-(.{2})/)[1];
+  //       if (memberState === state){
+  //          $scope.stateMembers.push($scope.allMembers[i]);
+  //       }
+  //     } else {
+  //       console.log("did not work ", memberTitle);
+  //     }
+  //   }
+  //   $scope.$apply(function(){
+  //     $scope.stateMembers = $scope.stateMembers;
+  //   });
+  // };
 
 
   $scope.getDistrictMember = function(stateDistrictId){
+    $scope.stateMembers = [];
     stateDistrictId = stateDistrictId.toString();
     //Need to check if state ID is one or two digits before slicing
     var stateId = stateDistrictId.length === 3 ? stateDistrictId.slice(0, 1) : stateDistrictId.slice(0, 2);
     var stateName = $scope.stateIdName[stateId];
     //District ID is always the last 2 digits
-    var districtId = stateDistrictId.slice(-2);
-    console.log('stateId: ' + stateId);
-    console.log('stateName: ' + stateName);
-    console.log('districtId: ' + districtId);
+    var districtId = parseInt(stateDistrictId.slice(-2));
     if(districtId[0] === 0){
       //Slice 0 out of district ID if single digit
       districtId = districtId[1];
     }
+    for(var i = 0; i < $scope.allMembers.length; i++){
+      var memberTitle = $scope.allMembers[i].title;
+      var memberDistrict = $scope.allMembers[i].district;
+      if(memberTitle.match(/.*\[.*\-(.{2})/)){
+        var memberState = memberTitle.match(/.*\[.*\-(.{2})/)[1];
+        if (memberState === stateName){
+        }
+        if (memberState === stateName && memberDistrict === districtId){
+          $scope.stateMembers.push($scope.allMembers[i]);
+          console.log(memberTitle);
+        }
+      }
+    }
+     $scope.$apply(function(){
+      $scope.stateMembers = $scope.stateMembers;
+    });
   };
 
   function buildMap(){
