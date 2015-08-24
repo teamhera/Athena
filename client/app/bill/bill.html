@@ -1,0 +1,110 @@
+<!-- Profile View Template -->
+
+<div id="anchor{{top}}" class="container-fluid">
+
+<!-- Begin Dropdown 1 -->
+  <div class="row">
+    <div class="btn-group col-sm-2 col-xs-2 col-sm-offset-2 col-xs-offset-1" dropdown is-open="status.isopen">
+      <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+        {{ dropdownOne }} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" style="max-height: 250px; overflow:auto">
+        <li role="menuitem"><a ng-click="selectCongress('all')" href="#">Search All</a></li>
+        <li role="menuitem" ng-repeat="congress in congresses"><a ng-click="selectCongress(this)" href="#">{{ congress[1] }}</a></li>
+      </ul>
+    </div>
+  <!-- End Dropdown 1 -->
+
+  <!-- Begin Sponsor Search -->
+    <!-- <div class="col-sm-4 col-xs-4 col-sm-offset-1 col-xs-offset-1">
+      <input ng-model="sponsorSearch" type="text" class="form-control" placeholder="Sponsor"/>
+    </div> -->
+  <!-- End Sponsor Search -->
+  </div>
+
+
+  <div class="row">
+  <!--Begin Bill Search Form-->
+    <div class="col-sm-8 col-xs-10 col-sm-offset-2 col-xs-offset-1" style="text-align:center">
+      <input ng-model="searchField" type="text" class="form-control" placeholder="Bill Keyword Search"/>
+      <button class="btn btn-default" ng-click="getAllBills()"> Search </button>
+    </div>
+  <!--End Bill Search Form-->
+
+  <!--Begin Bill Display-->
+  </div>
+
+  <div class="row">
+    <h3 style="text-align:center" data-ng-bind="searchHeader"></h2>
+  </div>
+
+  <div ng-show="displayFilter" class="row">
+    <div class="col-md-3 col-sm-4 col-xs-10 col-md-offset-2 col-sm-offset-1 col-xs-offset-1">
+      <input type="text" class="form-control" placeholder="Filter Results by Keyword" ng-model="billKeyword" />
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-3 col-md-offset-3">
+      <button ng-show="query.offset > 0" class="btn btn-default" ng-click="getAllBills(-1)"> Prev Page </button>
+      <button ng-show="bills.length === 100" class="btn btn-default" ng-click="getAllBills(1)"> Next Page </button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="bills col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1" ng-repeat="bill in bills | filter:billKeyword">
+      <div style="min-height:134px" class="bill bills col-sm-12 col-xs-12">
+        <!--Begin Sponsor Image-->
+        <div class="row">
+          <div class="col-sm-2 col-xs-3">
+            <a href="./profile/{{bill.sponsor.id}}">
+              <img class="member-profile-picture img-responsive center-block" src="https://www.govtrack.us/data/photos/{{ bill.sponsor.id }}-100px.jpeg" onerror="this.src='images/icons/default.png'">
+            </a>
+          </div>
+          <!--End Sponsor Image-->
+          
+                  
+          <div class="bill_text col-sm-10 col-xs-9">
+            <span class="bill-question">
+              <p>
+                <h3><a href="/bill/{{ bill.id }}" target="_blank">{{ bill.display_number}}</a></h3>
+              </p>
+            </span>
+                <!-- Show Bill Details if available -->
+            <span class="bill-details" ng-if="bill.title_without_number">
+              <h4>
+                {{ bill.title_without_number }}
+              </h4>
+            </span>
+            <span>
+            </span>
+                <!-- Show Default Details if none available -->
+            <span class="bill-details" ng-if="!bill.title_without_number">
+              <p>
+                Details: No Details Available
+              </p>
+            </span>
+            <span class="bill_status">
+              <h5>
+                Result: {{ bill.current_status_label }}
+              </h5>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="bill_text col-sm-2 col-xs-3">
+            <span>Sponsor: {{bill.sponsor.name}}</span>
+          </div>
+          <div class="bill_text col-sm-2 col-xs-2">
+            <span>Introduced:<br><span data-ng-bind="bill.introduced_date"</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="displayFilter" class="row">
+  <div class="col-md-3 col-sm-4 col-xs-10 col-md-offset-5 col-sm-offset-4 col-xs-offset-1">
+    <button ng-show="query.offset > 0" class="btn btn-default" ng-click="getAllBills(-1)"> Prev Page </button>
+    <button ng-show="bills.length === 100" class="btn btn-default" ng-click="getAllBills(1)"> Next Page </button>
+  </div>
+</div>
+  <!--End Bill Display-->
+</div>

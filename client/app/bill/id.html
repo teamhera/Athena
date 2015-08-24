@@ -1,0 +1,13 @@
+<div style="text-align:center">
+  <div style="text-align:center">
+    <h2 data-ng-bind="failMessage"></h2>
+    <h2 data-ng-bind="bill.related_bill.display_number"></h2>
+    <h3 data-ng-bind="bill.related_bill.title_without_number"></h3>
+    <div ng-controller="barController">
+      <button class="btn btn-default" ng-repeat="vote in votes track by $index" ng-click="changeIndex($index)">{{vote.chamber}}: {{vote.category}}</button>
+      <div style="margin: 0 20% 0 20%;">
+        <canvas id="bar" class="chart chart-bar" data="data" labels="labels" series="series" colours="colours" legend="true"/>
+      </div>
+    </div>
+  </div>
+</div>

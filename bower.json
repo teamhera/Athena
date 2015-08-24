@@ -20,6 +20,7 @@
     "bootstrap": "~3.3.5",
     "angular-mocks": "~1.4.3",
     "d3": "~3.5.6",
-    "us-map": "~1.0.4"
+    "us-map": "~1.0.4",
+    "angular-chart.js": "~0.7.6"
   }
 }

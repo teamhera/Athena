@@ -106,7 +106,6 @@ app.get('/members/*', function(req, res){
 */
 
 app.get('/votes/*', function(req, res){
-
   var pathObj = pathParse(req.url);
   var member_id = Number(pathObj.base);
   members.getMemberVotes(member_id, function(objects){
@@ -121,18 +120,71 @@ app.get('/votes/*', function(req, res){
 // on a GET request to 'bills/*', we are counting on the * to be a valid number for a bill_ID
 // we use path to parse out the base of the url which will be the bill_ID as a string
 app.get('/bills/*', function(req, res){
-
   var pathObj = pathParse(req.url);
   var bill_id = Number(pathObj.base);
   bills.getBillInformation(bill_id, function(listing){ // populates billInfo object with bill data
-    billInfo = utils.makeBillInfo(listing);
-    res.send(billInfo); // sends back JSON object to client
+    //billInfo = utils.makeBillInfo(listing);
+    res.send(listing); // sends back JSON object to client
+  });
+});
+
+//bill search route for more advanced queries than 'bills/*' offers
+app.get('/billSearch', function(req, res){
+  console.log(req.query);
+  bills.getBillsBySearch(req.query, function(listing){ // populates billInfo object with bill data
+    //billInfo = utils.makeBillSearch(listing);  //use to clean up and omit unessecary data before sending
+    res.send(listing); // sends back JSON object to client
+  });
+});
+
+// on a GET request to 'billvotes/*', we are couting on the * to be a valid number for a bill_ID
+// we use path to parse out the base of the url which will be the bill_ID as a string
+app.get('/billvotes/*', function(req, res){
+  var pathObj = pathParse(req.url);
+  var bill_id = Number(pathObj.base);
+  var location = [];
+  var category = [];
+  var required = [];
+  var votes = [];
+  bills.getBillVoteInformation(bill_id, function(listing){
+    var length = listing.objects.length;
+    if(length > 0){
+      var sync = function(){
+        var vote = listing.objects.shift();
+        location.push(vote.chamber_label);
+        category.push(vote.category_label);
+        required.push(vote.required);
+        bills.getBillVoters(vote.id, function(rawVoters){
+          votes.push(rawVoters.objects);
+          if(votes.length === length) {
+            res.send(utils.makeBillVoteStats(location, votes, category, required));
+          } else {
+            sync();
+          }
+        });
+      };
+      sync();
+    } else {
+      res.send(null);
+    }
+    // listing.objects.forEach(function(vote){
+    //   location.push(vote.chamber_label);
+    //   category.push(vote.category_label);
+    //   required.push(vote.required);
+    //   bills.getBillVoters(vote.id, function(rawVoters){
+    //     votes.push(rawVoters.objects);
+    //     if(votes.length === listing.objects.length) {
+    //       res.send(utils.makeBillVoteStats(location, votes, category, required));
+    //     }
+    //   });
+    // });
   });
 });
 
 app.get('/*', function(req, res){
   res.render('index.ejs');
 });
+
 
 // this expression runs on server start, retrieves a list of current members and writes it to memberList
 members.getAllMembers(function(objects){

@@ -39,7 +39,7 @@
     <div class="col-xs-4 col-sm-2 profiles-fix center-align">
       <!-- Add Second Member Search -->
       <div ng-hide="secondMember.data.id">
-         <input class="form-control input-sm" type="text" placeholder="Search by Politician Name" ng-model="addMember" typeahead="person as person.title for person in allMembers | filter:{id: '!' + member.data.id} | filter:{role: member.data.role} | filter: $viewValue | limitTo:5" />
+        <input class="form-control input-sm" type="text" placeholder="Search by Politician Name" ng-model="addMember" typeahead="person as person.title for person in allMembers | filter:{id: '!' + member.data.id} | filter:{role: member.data.role} | filter: $viewValue | limitTo:5" />
         <button class="btn btn-default btn-sm text-capitalize" ng-click="loadMember()"> Compare {{member.data.role}} </button> 
       </div> <!-- End Second Member Search -->
 
