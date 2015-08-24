@@ -66,6 +66,27 @@ a {
   }
 }
 /******************************************
+Navigation Banner
+******************************************/
+.header{
+  margin-top: 0;
+}
+#nav-banner{
+  background: #ee7722;
+  color: white;
+}
+
+.front-nav-button{
+  display: inline-block;
+  height: 64px;
+  line-height: 64px;
+  color: white;
+  font-size: 2em;
+  padding: 22px;
+}
+
+
+/******************************************
 Selection Bar
 ******************************************/
 

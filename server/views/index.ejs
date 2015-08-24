@@ -21,22 +21,27 @@
 </head>
   <body>
     <div class="header">
-    <div class="container-fluid">
-      <div class="col-sm-8 col-sm-offset-2">
-        <h1 class="text-center">Profiler</h1>
-        <h4 class="text-center">See how your senator and representative voted on issues important to you!</h4>
-        <h3 class="text-center"><a href="/">Congressmen</a> - <a href="/bill">Bills</a></h3>
+      <div id="nav-banner" class="container-fluid">
+        <div class="col-sm-12">
+          <div class="col-sm-4">
+            <h1 class="text-center">Political Profiler</h1>
+            <h4 class="text-center">See how your senator and representative voted on issues important to you!</h4>
+          </div>
+          <div class="col-sm-8">
+            <a href="/"><div class="front-nav-button">Congressman</div></a>
+            <a href="/bill"><div class="front-nav-button">Bills</div></a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="main">
-      <div ui-view></div>
-    </div>
-    <div class="footer">
-      <div class="col-sm-8 col-sm-offset-2">
-        <hr/>
-        <p>Proudly made using Open Data: <a href="https://www.govtrack.us/developers">govtrack.us/developers</a></p>
+      <div class="main">
+        <div ui-view></div>
       </div>
-    </div>
+      <div class="footer">
+        <div class="col-sm-8 col-sm-offset-2">
+          <hr/>
+          <p>Proudly made using Open Data: <a href="https://www.govtrack.us/developers">govtrack.us/developers</a></p>
+        </div>
+      </div>
     </div>
   </body>
 </html>
