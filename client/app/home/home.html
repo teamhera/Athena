@@ -6,6 +6,18 @@
     <div class="col-sm-5" ng-show="isMapView">
       <div>
         <button class="btn btn-default" style="float:left;" ng-click="switchView()"> Search By Name </button>
+      <table style="float:right;">
+        <tbody>
+          <tr ng-repeat="member in stateMembers">
+            <td>
+              <a href="/profile/{{ member.id }}"><img class="map-profile-pic home-profile-pic" src="https://www.govtrack.us/data/photos/{{ member.id }}-50px.jpeg" onerror="this.src='images/icons/default.png'"></a>
+            </td>
+            <td class="map-profile">
+              <a href="/profile/{{ member.id }}">{{ member.title }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       </div>
       <div id="clicked-state"></div>
       <div id="map" style="width: 1000px; height: 640px;"></div>
@@ -21,18 +33,6 @@
         </div>
       </div> -->
 
-      <table>
-        <tbody>
-          <tr ng-repeat="member in stateMembers">
-            <td>
-              <a href="/profile/{{ member.id }}"><img class="map-profile-pic home-profile-pic" src="https://www.govtrack.us/data/photos/{{ member.id }}-50px.jpeg" onerror="this.src='images/icons/default.png'"></a>
-            </td>
-            <td class="map-profile">
-              <a href="/profile/{{ member.id }}">{{ member.title }}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
     <div class="col-sm-10 col-sm-offset-1" ng-show="!isMapView">
