@@ -23,6 +23,7 @@ module.exports = function homeController($scope, $state, Home){
   $scope.switchView = function() {
     $scope.isMapView = $scope.isMapView ? false : true;
     buildMap();
+    console.log($scope.allMembers);
   };
 
   $scope.getStateMembers = function(state) {
