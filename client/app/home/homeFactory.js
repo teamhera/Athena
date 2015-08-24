@@ -8,7 +8,7 @@ module.exports = function homeFactory($http){
   /*******************************************
    * Loads All Members Name and ID from server
    ******************************************/
-  
+
   function getAllMembers(){
     return $http({
       method: 'GET',
@@ -81,6 +81,7 @@ module.exports = function homeFactory($http){
     });
   }
 
+
   /******************************************************
   * Load all bills from server
   *******************************************************/
@@ -96,6 +97,18 @@ module.exports = function homeFactory($http){
     });
   }
 
+  function getMapData(){
+    return $http({
+      method: 'GET',
+      url: '/mapData',
+    })
+    .then(function(res){
+      console.log(res.data);
+      return res.data;
+    });
+  }
+
+
   /******************************************************
   * Load all votes on bill from server
   *******************************************************/
@@ -109,6 +122,20 @@ module.exports = function homeFactory($http){
       return res.data;
     });
   }
+
+  function getCongressData(){
+    return $http({
+      method: 'GET',
+      url: '/congressData',
+    })
+    .then(function(res){
+      console.log(res.data);
+      return res.data;
+    });
+  }
+
+
+
   /*******************************************
    * Expose factory functions to the controller
    ******************************************/
@@ -122,7 +149,9 @@ module.exports = function homeFactory($http){
     getBillDetails: getBillDetails,
     getHistoricVotes: getHistoricVotes,
     getAllBills: getAllBills,
-    getBillVotes: getBillVotes
+    getBillVotes: getBillVotes,
+    getMapData: getMapData,
+    getCongressData: getCongressData
   });
 
 };

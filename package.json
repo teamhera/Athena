@@ -69,6 +69,7 @@
     "karma-mocha": "~0.2.0",
     "path-parse": "~1.0.5",
     "serve-favicon": "~2.3.0",
+    "topojson": "^1.6.19",
     "underscore": "~1.8.3",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.1.0",
