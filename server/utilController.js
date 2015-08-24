@@ -3,12 +3,12 @@ var _ = require('underscore');
 module.exports = {
 
   // takes in a JSON listing of a single congress person, returns a shortened object like:
-  /*  { 
+  /*  {
         id: 400408,
         firstName: 'Patrick',
         lastName: 'Toomey',
-        title: 'Sen. Patrick “Pat” Toomey [R-PA]' 
-      } 
+        title: 'Sen. Patrick “Pat” Toomey [R-PA]'
+      }
   */
   makeMemberEntry: function(listing) {
     return {
@@ -16,12 +16,13 @@ module.exports = {
       firstName: listing.person.firstname,
       lastName: listing.person.lastname,
       title: listing.person.name,
-      role: listing.role_type
+      role: listing.role_type,
+      district: listing.district
     };
   },
 
   // takes in a JSON listing of a listing from govTrack Person API, returns like:
-  /*  { 
+  /*  {
         id: 412669,
         name: 'Sen. Mike Rounds [R-SD]',
         description: 'Junior Senator from South Dakota',
@@ -31,7 +32,7 @@ module.exports = {
         twitterid: 'SenatorRounds',
         youtubeid: null,
         website: 'http://www.rounds.senate.gov',
-        phone: '202-224-5842' 
+        phone: '202-224-5842'
       }
   */
   makeMemberProfile: function(listing) {
@@ -48,7 +49,8 @@ module.exports = {
       twitterid: listing.twitterid,
       youtubeid: listing.youtubeid,
       website: listing.roles[listing.roles.length - 1].website,
-      phone: listing.roles[listing.roles.length - 1].phone
+      phone: listing.roles[listing.roles.length - 1].phone,
+      district: listing.roles[list.roles.length - 1].distrct
     };
   },
 
