@@ -7,27 +7,36 @@ module.exports = function profileController($scope, $stateParams, Home){
   var memberId1=$stateParams.id;
 
   $scope.allMembers = Home.allMembers;
-  $scope.member = {};
+  $scope.members = {};
   $scope.secondMember = {};
   $scope.commonVotes = [];
-  $scope.test=0;
-  
-  getMember(memberId1, $scope.member);
+  $scope.memberOrigin = 0;
+  $scope.memberIndex = 0;
+  $scope.currentBill = null;
+  $scope.memberCounter = 0;
+
+  getMember(memberId1, $scope.members);
  
  /*******************************************
    * Load one Member Profile from Factory
    ******************************************/
 
-   function getMember(id, member){
+  function getMember(id, members){
     Home.getMember(id)
     .then(function(data){
-      member.data = data;
-      member.data.age=calculateAge(new Date(member.data.birthday));
+      if(!Object.keys(members).length){
+        $scope.memberOrigin = $scope.memberIndex;
+      }
+      $scope.memberCounter++;
+      members[$scope.memberIndex] = data;
+      members[$scope.memberIndex].age = calculateAge(new Date(members[$scope.memberIndex].birthday));
+      members[$scope.memberIndex].currentIndex = $scope.memberIndex;
       //Load D3 Graph when politican is added
-      loadGraph(id, member.data.fullname);
-      return member;
-    }).then(function(member){
-      getMemberVotes(member);
+      loadGraph(id, members[$scope.memberIndex].fullname, members[$scope.memberIndex].id);
+      return members;
+    }).then(function(members){
+      getMemberVotes(members[$scope.memberIndex]);
+      $scope.memberIndex++;
     }).catch(function(err){
       throw err;
     });        
@@ -38,15 +47,47 @@ module.exports = function profileController($scope, $stateParams, Home){
    * add to member object
    ******************************************/
 
-   function getMemberVotes(member){
-    Home.getMemberVotes(member.data.id)
+  function getMemberVotes(member){
+    Home.getMemberVotes(member.id)
     .then(function(votes){
-      member.data.votes = votes;
+      $scope.members[member.currentIndex].votes = votes;
     }).catch(function(err){
       throw err;
     });
   }
 
+  /********************************************
+  * return vote property of input
+  *********************************************/
+  $scope.votedYes = function(input){
+    var vote = input.vote;
+    return vote === 'Yes' || vote === 'Aye' || vote === 'Yea';
+  };
+
+  $scope.votedNo = function(input){
+    var vote = input.vote;
+    return vote === 'Nay' || vote === 'No';
+  };
+
+  $scope.votedNeutral = function(input){
+    return $scope.votedYes(input) === $scope.votedNo(input);
+  };
+
+
+  /********************************************
+  * helper functions
+  *********************************************/
+  $scope.updateCurrentBill = function(input){
+    //window.console.log('input is ', input);
+    $scope.currentBill = input;
+    return true;
+  };
+
+  //for testing
+  $scope.showValue = function(message,input){
+    window.console.log(message,' ', input);
+    return true;
+  };
 
   function calculateAge(birthday) { // birthday is a date
     var ageDifMs = Date.now() - birthday.getTime();
@@ -59,7 +100,7 @@ module.exports = function profileController($scope, $stateParams, Home){
    ******************************************/
    $scope.loadMember = function (){
     var memberId2 = $scope.addMember.id;
-    getMember(memberId2, $scope.secondMember);
+    getMember(memberId2, $scope.members);
     // Clear Member input on second politician search
     $scope.addMember = null;
    };
@@ -67,17 +108,23 @@ module.exports = function profileController($scope, $stateParams, Home){
    /*******************************************
     * Remove Compared Politician
     ******************************************/
-    $scope.removePolitician = function() {
-      $scope.secondMember.data.id = null;
+    $scope.removePolitician = function(index) {
+      var id  = "#" + $scope.members[index].id;
+      delete $scope.members[index];
+      $scope.memberCounter--;
+      if($scope.members[$scope.memberOrigin] === undefined){
+        $scope.memberOrigin = Object.keys($scope.members)[0];
+      }
       //Remove Vote Graph
-      $(".graph svg:last-child").remove();
+      $('.graph').find(id).remove();
     };
+
 
 
   /*******************************************
    * Plot Historical Votes on Graph
    ******************************************/
-   function loadGraph(memberId, memberName){
+  function loadGraph(memberId, memberName, graphId){
       Home.getHistoricVotes(memberId)
         .then(function(data){
 
@@ -126,6 +173,7 @@ module.exports = function profileController($scope, $stateParams, Home){
 
           //Append svg to graph element with sizing
           var vis = d3.select(".graph").append("svg")
+              .attr("id",graphId)
               .attr("width", width + margin.left + margin.right)
               .attr("height", height + margin.top + margin.bottom)
             .append("g")
