@@ -318,6 +318,11 @@ Profile Template
   }
 }
 
+.profile-id{
+  font-family: 'Lato';
+  margin-top: 20px;
+}
+
 
 /******************************************
 Bills Styling
@@ -403,6 +408,33 @@ Bills Styling
 }
 
 
+.bill-status-text, .bill-status-title{
+  display: inline;
+  font-family: 'Lato';
+  font-size: 170%;
+}
+
+.bill-status-title{
+  font-weight: bold;
+}
+
+.table-date{
+  width: 200px;
+  font-size: 1.5em;
+  font-family: "Lato";
+}
+
+.table-info{
+  font-size: 1.5em;
+  font-family: "Lato";
+}
+
+
+.table-header{
+  text-align: center;
+  font-size: 1.8em;
+  font-family: "Lato";
+}
 
 /******************************************
 Overall - overwrite
