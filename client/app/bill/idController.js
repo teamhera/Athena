@@ -1,4 +1,5 @@
 module.exports = function idController($scope, $stateParams, Home){
+  
   $scope.getBill = function(id){
     if (id === undefined){
       id = $stateParams.id;
