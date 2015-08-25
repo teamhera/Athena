@@ -156,12 +156,16 @@ app.get('/billSearch', function(req, res){
   });
 });
 
-var billVotesCache = {_size: 0};
+// set _date to 1 day ahead
+var billVotesCache = {_date: Number(new Date()) + 86400000};
 // on a GET request to 'billvotes/*', we are couting on the * to be a valid number for a bill_ID
 // we use path to parse out the base of the url which will be the bill_ID as a string
 app.get('/billvotes/*', function(req, res){
   var pathObj = pathParse(req.url);
   var bill_id = Number(pathObj.base);
+  if(billVotesCache._date < Number(new Date())) {
+    billVotesCache = {_date: Number(new Date()) + 86400000};
+  }
   // send cached data if it exists
   if(billVotesCache[bill_id]) {
     res.send(billVotesCache[bill_id]);
@@ -186,15 +190,6 @@ app.get('/billvotes/*', function(req, res){
               if(results === listing.objects.length) {
                 // send result and fill cache
                 res.send(billVotesCache[bill_id] = utils.makeBillVoteStats(location, votes, category, required));
-                // cache management
-                if(!billVotesCache._size) {
-                  billVotesCache._size = 1;
-                } else {
-                  billVotesCache._size++;
-                  if(billVotesCache._size > 100) {
-                    billVotesCache = {_size: 0};
-                  }
-                }
               }
             });
           })(index);
