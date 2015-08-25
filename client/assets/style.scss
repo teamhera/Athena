@@ -23,33 +23,6 @@ fonts
 
 $font-stack: Helvetica, sans-serif;
 
-@font-face {
-  font-family: 'PT Sans 1';
-  font-style: normal;
-  font-weight: 700;
-  src: local('PT Sans'), local('PTSans-Regular'), url(https://fonts.gstatic.com/s/ptsans/v8/BJVWev7_auVaQ__OU8Qih1KPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
-}
-
-@font-face {
-  font-family: 'PT Sans 2';
-  font-style: normal;
-  font-weight: 400;
-  src: local('PT Sans'), local('PTSans-Regular'), url(https://fonts.gstatic.com/s/ptsans/v8/BJVWev7_auVaQ__OU8Qih1KPGs1ZzpMvnHX-7fPOuAc.woff2) format('woff2');
-}
-
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Lato Hairline'), local('Lato-Hairline'), url(https://fonts.gstatic.com/s/lato/v11/h3_FseZLI76g1To6meQ4zX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-}
-
-@font-face {
-  font-family: 'Lato 2';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lato Hairline'), local('Lato-Hairline'), url(https://fonts.gstatic.com/s/lato/v11/h3_FseZLI76g1To6meQ4zX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-}
 
 
 /******************************************
@@ -119,12 +92,12 @@ Navigation Banner
 }
 
 .other-text{
-  font-family: 'Lato 2';
+  font-family: 'Lato';
   color: #555;
 }
 
 .banner-header-title{
-  font-family: 'PT Sans 1';
+  font-family: 'PT Sans';
 }
 
 
