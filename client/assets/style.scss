@@ -477,6 +477,10 @@ dl {
   font-weight: 500;
 }
 
+/******************************************
+Map Styling
+******************************************/
+
 path {
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -502,4 +506,8 @@ path {
   fill: none;
   stroke: #fff;
   stroke-width: 1.5px;
+}
+
+.districtRep {
+  margin-right: 50px;
 }
