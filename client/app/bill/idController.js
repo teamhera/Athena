@@ -3,11 +3,9 @@ module.exports = function idController($scope, $stateParams, Home){
     if (id === undefined){
       id = $stateParams.id;
     }
-    console.log(id);
     Home.getBillDetails(id)
       .then(function(res){
         $scope.bill = res;
-        console.log($scope.bill);
         if ($scope.bill === undefined){
           $scope.failMessage = "We didn't find any info for that bill :(";
         }

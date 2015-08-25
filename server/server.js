@@ -168,35 +168,26 @@ app.get('/billvotes/*', function(req, res){
   bills.getBillVoteInformation(bill_id, function(listing){
     var length = listing.objects.length;
     if(length > 0){
-      var sync = function(){
-        var vote = listing.objects.shift();
+      //fill votes array with votes from each voting session asynchronously
+      var results = 0;
+      listing.objects.forEach(function(vote, index){
         location.push(vote.chamber_label);
         category.push(vote.category_label);
         required.push(vote.required);
-        bills.getBillVoters(vote.id, function(rawVoters){
-          votes.push(rawVoters.objects);
-          if(votes.length === length) {
-            res.send(utils.makeBillVoteStats(location, votes, category, required));
-          } else {
-            sync();
-          }
-        });
-      };
-      sync();
+        (function(index){
+          bills.getBillVoters(vote.id, function(rawVoters){
+            votes[index] = rawVoters.objects;
+            results++;
+            if(results === listing.objects.length) {
+              res.send(utils.makeBillVoteStats(location, votes, category, required));
+            }
+          });
+        })(index);
+      });
     } else {
       res.send(null);
     }
-    // listing.objects.forEach(function(vote){
-    //   location.push(vote.chamber_label);
-    //   category.push(vote.category_label);
-    //   required.push(vote.required);
-    //   bills.getBillVoters(vote.id, function(rawVoters){
-    //     votes.push(rawVoters.objects);
-    //     if(votes.length === listing.objects.length) {
-    //       res.send(utils.makeBillVoteStats(location, votes, category, required));
-    //     }
-    //   });
-    // });
+    
   });
 });
 
