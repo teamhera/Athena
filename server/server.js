@@ -156,39 +156,54 @@ app.get('/billSearch', function(req, res){
   });
 });
 
+var billVotesCache = {_size: 0};
 // on a GET request to 'billvotes/*', we are couting on the * to be a valid number for a bill_ID
 // we use path to parse out the base of the url which will be the bill_ID as a string
 app.get('/billvotes/*', function(req, res){
   var pathObj = pathParse(req.url);
   var bill_id = Number(pathObj.base);
-  var location = [];
-  var category = [];
-  var required = [];
-  var votes = [];
-  bills.getBillVoteInformation(bill_id, function(listing){
-    var length = listing.objects.length;
-    if(length > 0){
-      //fill votes array with votes from each voting session asynchronously
-      var results = 0;
-      listing.objects.forEach(function(vote, index){
-        location.push(vote.chamber_label);
-        category.push(vote.category_label);
-        required.push(vote.required);
-        (function(index){
-          bills.getBillVoters(vote.id, function(rawVoters){
-            votes[index] = rawVoters.objects;
-            results++;
-            if(results === listing.objects.length) {
-              res.send(utils.makeBillVoteStats(location, votes, category, required));
-            }
-          });
-        })(index);
-      });
-    } else {
-      res.send(null);
-    }
-    
-  });
+  // send cached data if it exists
+  if(billVotesCache[bill_id]) {
+    res.send(billVotesCache[bill_id]);
+  } else {
+    var location = [];
+    var category = [];
+    var required = [];
+    var votes = [];
+    bills.getBillVoteInformation(bill_id, function(listing){
+      var length = listing.objects.length;
+      if(length > 0){
+        // fill votes array with votes from each voting session asynchronously
+        var results = 0;
+        listing.objects.forEach(function(vote, index){
+          location.push(vote.chamber_label);
+          category.push(vote.category_label);
+          required.push(vote.required);
+          (function(index){
+            bills.getBillVoters(vote.id, function(rawVoters){
+              votes[index] = rawVoters.objects;
+              results++;
+              if(results === listing.objects.length) {
+                // send result and fill cache
+                res.send(billVotesCache[bill_id] = utils.makeBillVoteStats(location, votes, category, required));
+                // cache management
+                if(!billVotesCache._size) {
+                  billVotesCache._size = 1;
+                } else {
+                  billVotesCache._size++;
+                  if(billVotesCache._size > 100) {
+                    billVotesCache = {_size: 0};
+                  }
+                }
+              }
+            });
+          })(index);
+        });
+      } else {
+        res.send(null);
+      }
+    });
+  }
 });
 
 app.get('/*', function(req, res){
