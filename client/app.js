@@ -3,8 +3,10 @@ require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('angular-animate');
 require('angular-loading-bar');
+require('angular-sanitize');
 var home = require('./app/home');
 var profile = require('./app/profile');
+var bill = require('./app/bill');
 
 /*Entry Point for routing*/
 var congressmanprofile = angular.module('congressmanprofile', [
@@ -14,8 +16,11 @@ var congressmanprofile = angular.module('congressmanprofile', [
   'ui.bootstrap',
   'angular-loading-bar', 
   'ngAnimate',
+  'chart.js',
+  'ngSanitize',
   home.name,
-  profile.name
+  profile.name,
+  bill.name
   ])
 
 // Router for app
@@ -31,6 +36,16 @@ var congressmanprofile = angular.module('congressmanprofile', [
       url: '/profile/:id',
       templateUrl: 'views/profile/profile.html',
       controller: 'profileController'
+    })
+    .state('bill', {
+      url: '/bill',
+      templateUrl: 'views/bill/bill.html',
+      controller: 'billController'
+    })
+    .state('id', {
+      url: '/bill/:id',
+      templateUrl: 'views/bill/id.html',
+      controller: 'idController'
     });
 
 });

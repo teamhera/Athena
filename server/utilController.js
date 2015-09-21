@@ -3,12 +3,12 @@ var _ = require('underscore');
 module.exports = {
 
   // takes in a JSON listing of a single congress person, returns a shortened object like:
-  /*  { 
+  /*  {
         id: 400408,
         firstName: 'Patrick',
         lastName: 'Toomey',
-        title: 'Sen. Patrick “Pat” Toomey [R-PA]' 
-      } 
+        title: 'Sen. Patrick “Pat” Toomey [R-PA]'
+      }
   */
   makeMemberEntry: function(listing) {
     return {
@@ -16,12 +16,13 @@ module.exports = {
       firstName: listing.person.firstname,
       lastName: listing.person.lastname,
       title: listing.person.name,
-      role: listing.role_type
+      role: listing.role_type,
+      district: listing.district
     };
   },
 
   // takes in a JSON listing of a listing from govTrack Person API, returns like:
-  /*  { 
+  /*  {
         id: 412669,
         name: 'Sen. Mike Rounds [R-SD]',
         description: 'Junior Senator from South Dakota',
@@ -31,7 +32,7 @@ module.exports = {
         twitterid: 'SenatorRounds',
         youtubeid: null,
         website: 'http://www.rounds.senate.gov',
-        phone: '202-224-5842' 
+        phone: '202-224-5842'
       }
   */
   makeMemberProfile: function(listing) {
@@ -48,7 +49,8 @@ module.exports = {
       twitterid: listing.twitterid,
       youtubeid: listing.youtubeid,
       website: listing.roles[listing.roles.length - 1].website,
-      phone: listing.roles[listing.roles.length - 1].phone
+      phone: listing.roles[listing.roles.length - 1].phone,
+      district: listing.roles[listing.roles.length - 1].distrct
     };
   },
 
@@ -92,6 +94,18 @@ module.exports = {
     };
   },
 
+  //takes JSON listings and returns an object with only relevant data indexed by bill number
+  makeBillSearch: function(listings){
+    cleanListings = {};
+    _.each(listings, function(listing){
+      cleanListings[listing.number] = {
+        title: listing.title
+
+      };
+    });
+    return cleanListings;
+  },
+
   /*
     The function that will initially create a list with random congressmen,
     and then, every time a congressman was searched, will add him/her to this list.
@@ -113,6 +127,48 @@ module.exports = {
         trendingList.unshift(member);
       }
     }
+  },
+
+  makeBillVoteStats: function(chambers, sessions, categories, required){
+    var billVotes = [];
+    sessions.forEach(function(session, i){
+      var voteInfo = {};
+      voteInfo.chamber = chambers[i];
+      voteInfo.category = categories[i];
+      voteInfo.required = required[i];
+      voteInfo.democrat = [0,0,0];
+      voteInfo.republican = [0,0,0];
+      voteInfo.independent = [0,0,0];
+      session.forEach(function(vote){
+        if(vote.option.key === '+'){
+          if(vote.person_role.party === 'Democrat'){
+            voteInfo.democrat[0]++;
+          } else if(vote.person_role.party === 'Republican'){
+            voteInfo.republican[0]++;
+          } else {
+            voteInfo.independent[0]++;
+          }
+        } else if(vote.option.key === '-'){
+          if(vote.person_role.party === 'Democrat'){
+            voteInfo.democrat[1]++;
+          } else if(vote.person_role.party === 'Republican'){
+            voteInfo.republican[1]++;
+          } else {
+            voteInfo.independent[1]++;
+          }
+        } else {
+          if(vote.person_role.party === 'Democrat'){
+            voteInfo.democrat[2]++;
+          } else if(vote.person_role.party === 'Republican'){
+            voteInfo.republican[2]++;
+          } else {
+            voteInfo.independent[2]++;
+          }
+        }
+      });
+      billVotes.push(voteInfo);
+    });
+    return billVotes;
   }
 
 };

@@ -1,6 +1,6 @@
-/*
+/******************************************
 Colors
-*/
+******************************************/
 
 $red: #ee4035;
 $orange: #f37736;
@@ -14,15 +14,20 @@ $red-rgb: (238,64,53);
 $green-rgb: (123,192,67);
 $gray-rgb: (187,187,187);
 
-/*
-Font
-*/
+
+
+
+/******************************************
+fonts
+******************************************/
 
 $font-stack: Helvetica, sans-serif;
 
-/*
-Mixins
-*/
+
+
+/******************************************
+mixins
+******************************************/
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
      -moz-border-radius: $radius;
@@ -36,11 +41,10 @@ body {
 
 .header {
   margin: 20px auto 10px;
-  
+
   a {
     font-style: none;
     text-decoration: none;
-    color: $black;
   }
 }
 
@@ -60,10 +64,80 @@ a {
     margin: 40px 0 5px 0;
   }
 }
+/******************************************
+Navigation Banner
+******************************************/
+.header{
+  margin-top: 0;
+}
 
-/*
+
+#nav-banner{
+  background: rgba(71,145,210,1);
+  font-family: 'Lato';
+  color: white;
+}
+
+.front-nav-button{
+  display: inline-block;
+  height: 64px;
+  line-height: 64px;
+  color: white;
+  font-size: 2em;
+  padding: 22px;
+}
+
+.front-nav-button:hover{
+  color: #1ac6ff;
+}
+
+.other-text{
+  font-family: 'Lato';
+  color: #555;
+}
+
+.banner-header-title{
+  font-family: 'PT Sans';
+}
+
+
+
+/******************************************
+Selection Bar
+******************************************/
+
+td.active{
+  background: red;
+}
+
+.nav-bar-view{
+  background: white;
+  border-bottom: 1px solid #777;
+}
+
+.nav-bar-view-choice{
+  font-family: 'Lato';
+  font-size: 1.7em;
+  background: white;
+  display: inline-block;
+  line-height: 40px;
+  padding: 15px;
+  margin: 0;
+  text-align: center;
+}
+
+.active-choice{
+  background: #f89406;
+  color: white;
+}
+
+.mybutton{
+  display: inline-block;
+}
+
+/******************************************
 Image Styling
-*/
+******************************************/
 
 .member-profile-picture, .second-member-profile-pic, .home-profile-pic {
   @include border-radius(20px);
@@ -76,7 +150,7 @@ Home Template Style
   display: inline;
   margin-top: 100px;
   margin-bottom: 50px;
-    
+
     input {
       width: 100%;
       height: 30px;
@@ -119,12 +193,19 @@ table { border-spacing: 5px; } /* cellspacing */
 
 th, td { padding: 5px; } /* cellpadding */
 
-/*
-Profile Template Style
-*/
 
-.profiles-fix {
-  height: 150px;
+
+
+
+/******************************************
+Profile Template
+******************************************/
+.member-name{
+  font-size: 14px;
+}
+
+.member-info{
+  font-size: 12px;
 }
 
 .profiles {
@@ -191,7 +272,7 @@ Profile Template Style
     margin: 5px auto 0 auto;
 
   }
-  
+
   .second-profile-data {
     margin: 15px 0 0 0;
     position: relative;
@@ -210,13 +291,25 @@ Profile Template Style
   }
 }
 
+.profile-id{
+  font-family: 'Lato';
+  margin-top: 20px;
+}
 
-/*
+
+/******************************************
 Bills Styling
-*/
-.bill-votes {
-  margin-top: 30px;
-  margin-bottom: 15px;
+******************************************/
+.input-fields{
+  margin-left: 100px;
+  padding-top: 40px;
+}
+
+.bill-search{
+  height: 34px;
+  line-height: 34px;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .profile-addMember {
@@ -225,14 +318,11 @@ Bills Styling
   }
 
   button {
-    margin: 2px auto; 
+    margin: 2px auto;
     float: right;
   }
 }
 
-.bill-search {
-  margin-bottom: 15px;
-}
 
 .member-vote {
   position: relative;
@@ -241,10 +331,7 @@ Bills Styling
   vertical-align: middle;
   font-size: 120%;
   font-weight: 600;
-  margin-top: 15px;
-  margin-left: 20px;
   padding: 5px;
-  background: rgba(187,187,187, 0.5);
 
   p {
     margin: 0;
@@ -252,14 +339,12 @@ Bills Styling
   }
 }
 
-.vote-left {
-  float: left;
-  vertical-align: middle;
-}
-
-.vote-right {
-  float: right;
-  margin-right: 20px;
+.neutral-text{
+  font-size: 1em;
+  margin: auto;
+  height: 64px;
+  line-height: 64px;
+  width: 64px;
 }
 
 .positive {
@@ -270,12 +355,19 @@ Bills Styling
   background: rgba(238,64,53, 0.7);
 }
 
+.neutral {
+  background: sandybrown;
+}
+
+.vote {
+  min-width: 70px;
+}
+
 .bill {
   text-align: center;
-  margin: 10px 0 0 5px;
-  padding: 5px;
-  border: 1px solid $gray;
-  @include border-radius(25px); 
+  margin: 3px 0 0 5px;
+  padding: 5px 0;
+  border: 1px solid gray;
 
 
   .bill-question {
@@ -292,9 +384,61 @@ Bills Styling
   }
 }
 
-/*
+
+.bill-status-text, .bill-status-title{
+  display: inline;
+  font-family: 'Lato';
+  font-size: 170%;
+}
+
+.bill-status-title{
+  font-weight: bold;
+}
+
+.table-date{
+  width: 200px;
+  font-size: 1.5em;
+  font-family: "Lato";
+}
+
+.table-info{
+  font-size: 1.5em;
+  font-family: "Lato";
+}
+
+
+.table-header{
+  text-align: center;
+  font-size: 1.8em;
+  font-family: "Lato";
+}
+
+/******************************************
+Overall - overwrite
+******************************************/
+.row{
+  padding: 0 0 25px 0;
+}
+
+.round-edge{
+  border-radius: 10px;
+}
+
+.nav-selection{
+  margin: 0 0 15px 0;
+}
+
+.main{
+  padding:0;
+}
+
+.bar-legend li {
+  font-size: 1.5em;
+}
+
+/******************************************
 D3 Styling
-*/
+******************************************/
 .legend {
   margin: 20px 0 0 5px;
   text-align: center;
@@ -340,4 +484,39 @@ dl {
   margin: 5px 0 10px 0;
   font-size: 150%;
   font-weight: 500;
+}
+
+/******************************************
+Map Styling
+******************************************/
+
+path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.districts {
+  fill: #FF9933;
+}
+
+.districts :hover {
+  fill: #3399FF;
+}
+
+.district-boundaries {
+  pointer-events: none;
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.state-boundaries {
+  pointer-events: none;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.districtRep {
+  margin-right: 50px;
 }

@@ -8,7 +8,7 @@ module.exports = function homeFactory($http){
   /*******************************************
    * Loads All Members Name and ID from server
    ******************************************/
-  
+
   function getAllMembers(){
     return $http({
       method: 'GET',
@@ -81,6 +81,61 @@ module.exports = function homeFactory($http){
     });
   }
 
+
+  /******************************************************
+  * Load all bills from server
+  *******************************************************/
+
+  function getAllBills(query){
+    return $http({
+      method: 'GET',
+      url: '/billSearch',
+      params: query
+    })
+    .then(function(res){
+      return res.data;
+    });
+  }
+
+  function getMapData(){
+    return $http({
+      method: 'GET',
+      url: '/mapData',
+    })
+    .then(function(res){
+      console.log(res.data);
+      return res.data;
+    });
+  }
+
+
+  /******************************************************
+  * Load all votes on bill from server
+  *******************************************************/
+
+  function getBillVotes(id){
+    return $http({
+      method: 'GET',
+      url: '/billvotes/' + id
+    })
+    .then(function(res){
+      return res.data;
+    });
+  }
+
+  function getCongressData(){
+    return $http({
+      method: 'GET',
+      url: '/congressData',
+    })
+    .then(function(res){
+      console.log(res.data);
+      return res.data;
+    });
+  }
+
+
+
   /*******************************************
    * Expose factory functions to the controller
    ******************************************/
@@ -92,7 +147,11 @@ module.exports = function homeFactory($http){
     getMember: getMember,
     getMemberVotes: getMemberVotes,
     getBillDetails: getBillDetails,
-    getHistoricVotes: getHistoricVotes
+    getHistoricVotes: getHistoricVotes,
+    getAllBills: getAllBills,
+    getBillVotes: getBillVotes,
+    getMapData: getMapData,
+    getCongressData: getCongressData
   });
 
 };
