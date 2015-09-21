@@ -14,7 +14,7 @@ module.exports = function profileController($scope, $stateParams, Home){
   $scope.memberIndex = 0;
   $scope.currentBill = null;
   $scope.memberCounter = 0;
-  $scope.activePill = [1,0,0];
+  $scope.activePill = [1,0];
 
   getMember(memberId1, $scope.members);
  

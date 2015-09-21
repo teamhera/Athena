@@ -4,11 +4,8 @@
 
   <section class="row"> <!--row 1: Profile Section-->
     <div class="nav-bar-view nav-selection col-sm-12">
-      <tr class="col-sm-6 col-sm-offset-2">
-        <td><div class="nav-bar-view-choice" ng-class="{'active-choice': !!activePill[0]}" ng-click="selectPill(0)">Recent Votes</div></td>
-        <td><div class="nav-bar-view-choice" ng-class="{'active-choice': !!activePill[1]}" ng-click="selectPill(1)">Member Historic Votes</div></td>
-        <td><div class="nav-bar-view-choice" ng-class="{'active-choice': !!activePill[2]}" ng-click="selectPill(2)">Funding History</div></td>
-      </ul>
+      <div class="nav-bar-view-choice" ng-class="{'active-choice': !!activePill[0]}" ng-click="selectPill(0)">Recent Votes</div><!--
+   --><div class="nav-bar-view-choice" ng-class="{'active-choice': !!activePill[1]}" ng-click="selectPill(1)">Member Historic Votes</div>
     </div>
 
     <div class="input-fields col-sm-3">
