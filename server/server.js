@@ -106,7 +106,6 @@ app.get('/members/*', function(req, res){
 */
 
 app.get('/votes/*', function(req, res){
-
   var pathObj = pathParse(req.url);
   var member_id = Number(pathObj.base);
   members.getMemberVotes(member_id, function(objects){
@@ -121,7 +120,6 @@ app.get('/votes/*', function(req, res){
 // on a GET request to 'bills/*', we are counting on the * to be a valid number for a bill_ID
 // we use path to parse out the base of the url which will be the bill_ID as a string
 app.get('/bills/*', function(req, res){
-
   var pathObj = pathParse(req.url);
   var bill_id = Number(pathObj.base);
   bills.getBillInformation(bill_id, function(listing){ // populates billInfo object with bill data
@@ -130,9 +128,18 @@ app.get('/bills/*', function(req, res){
   });
 });
 
+//bill search route for more advanced queries than 'bills/*' offers
+app.get('/billSearch', function(req, res){
+  bills.getBillsBySearch(req.query, function(listing){ // populates billInfo object with bill data
+    //billInfo = utils.makeBillSearch(listing);  //use to clean up and omit unessecary data before sending
+    res.send(listing); // sends back JSON object to client
+  });
+});
+
 app.get('/*', function(req, res){
   res.render('index.ejs');
 });
+
 
 // this expression runs on server start, retrieves a list of current members and writes it to memberList
 members.getAllMembers(function(objects){

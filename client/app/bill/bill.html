@@ -1,0 +1,42 @@
+<!-- Profile View Template -->
+
+<div class="container-fluid">
+<!--Begin Bill Search Form-->
+  <div style="text-align:center">
+    <input type="text" class="form-control" placeholder="Bill Search"/>
+    <button class="btn btn-default" ng-click="getAllBills()"> Search </button>
+  </div>
+<!--End Bill Search Form-->
+
+<!--Begin Bill Display-->
+  <div class="bills col-sm-10 col-sm-offset-1" ng-repeat="bill in bills | filter:billKeyword">
+    <div class="bill col-sm-12">
+              
+      <div class="bill_text col-sm-8 col-sm-offset-1">
+        <span class="bill-question">
+          <p>
+            <a href="{{ bill.link }}" target="_blank">{{ bill.bill_question }}</a>
+          </p>
+        </span>
+            <!-- Show Bill Details if available -->
+        <span class="bill-details" ng-if="bill.bill_question_details">
+          <p>
+            Details: {{ bill.bill_question_details }}
+          </p>
+        </span>
+            <!-- Show Default Details if none available -->
+        <span class="bill-details" ng-if="!bill.bill_question_details">
+          <p>
+            Details: No Details Available
+          </p>
+        </span>
+        <span class="bill_status">
+          <p>
+            Result: {{ bill.result }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+  <!--End Bill Display-->

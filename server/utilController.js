@@ -92,6 +92,18 @@ module.exports = {
     };
   },
 
+  //takes JSON listings and returns an object with only relevant data indexed by bill number
+  makeBillSearch: function(listings){
+    cleanListings = {};
+    _.each(listings, function(listing){
+      cleanListings[listing.number] = {
+        title: listing.title
+
+      };
+    });
+    return cleanListings;
+  },
+
   /*
     The function that will initially create a list with random congressmen,
     and then, every time a congressman was searched, will add him/her to this list.

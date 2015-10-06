@@ -2,6 +2,7 @@
 module.exports = function homeFactory($http){
 
   var allMembers = [];
+  //var allBills = [];
   var trendingMembers = [];
   getAllMembers();
 
@@ -81,6 +82,21 @@ module.exports = function homeFactory($http){
     });
   }
 
+  /******************************************************
+  * Load all bills from server
+  *******************************************************/
+
+  function getAllBills(query){
+    return $http({
+      method: 'GET',
+      url: '/billSearch',
+      params: query
+    })
+    .then(function(res){
+      return res.data;
+    });
+  }
+
   /*******************************************
    * Expose factory functions to the controller
    ******************************************/
@@ -92,7 +108,8 @@ module.exports = function homeFactory($http){
     getMember: getMember,
     getMemberVotes: getMemberVotes,
     getBillDetails: getBillDetails,
-    getHistoricVotes: getHistoricVotes
+    getHistoricVotes: getHistoricVotes,
+    getAllBills: getAllBills
   });
 
 };
