@@ -8,6 +8,11 @@
   - __Scrum Master__: Syed Jafri
   - __Development Team Members__: Andrey Azov, Cliff Saporta Cheng
   
+## Legacy Team
+
+  - __Product Owner__: Eric Kinger
+  - __Scrum Master__: Charles Crame
+  - __Development Team Members__: Nate Parrish, Zach Sebag
 
 ## Table of Contents
 
